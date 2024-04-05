@@ -59,7 +59,7 @@ const DashCards = () => {
             strokeColor="#F8D236"
             trailColor="#F6EEFF"
           />
-          <Paragraph className="text-sm font-normal leading-snug text-left text-black">
+          <Paragraph className="mb-0 text-sm font-normal leading-snug text-left text-black">
             Total Task {data.total_tasks}
           </Paragraph>
         </Card>
@@ -153,7 +153,7 @@ const DashCards = () => {
             percent={`${Math.round(
               (data.unassigned / data.total_projects) * 100
             )}`}
-            strokeWidth={16}
+            strokeWidth={9}
             strokeLinecap="square"
             strokeColor="#FF4D4F"
             trailColor="#F6EEFF"
