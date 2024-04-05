@@ -49,13 +49,13 @@ const DashCards = () => {
             <CheckCircleOutlined style={{ color: "#1890FF" }} />
           </div>
           <Title level={2}>{data.total_projects}</Title>
-          <p className="text-sm font-semibold leading-snug text-left">
+          {/* <p className="text-sm font-semibold leading-snug text-left">
             Progress {data.percentage_completed}%
-          </p>
+          </p> */}
           <Progress
             type="line"
             percent={data.percentage_completed}
-            strokeWidth={4}
+            strokeWidth={9}
             strokeColor="#F8D236"
             trailColor="#F6EEFF"
           />
