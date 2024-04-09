@@ -21,7 +21,7 @@ const page = () => {
             <div className='w-full bg-white'>
                 <div className='p-5'>
                     <h1 className='text-black font-semibold text-2xl'>Create Project</h1>
-                     <p className='text-black font-semibold '>Form pages are used to collect or verify information to users, and basic forms are common in scenarios where there are fewer data items.</p>
+                    <p className='text-black font-semibold '>Form pages are used to collect or verify information to users, and basic forms are common in scenarios where there are fewer data items.</p>
                 </div>
             </div>
             <div>
@@ -102,7 +102,7 @@ const page = () => {
                                     <td className="py-2 text-sm font-medium text-gray-900">{filter.MailID}</td>
                                     <td className="py-2 whitespace-nowrap text-sm space-x-5">
                                         <Button icon={<EditOutlined />} >Edit</Button>
-                                        <Button type="primary" danger icon={<DeleteOutlined />} onClick={() => handleDelete(filter.id)}>Remove</Button>
+                                        <Button type="primary" className='bg-red-500' danger icon={<DeleteOutlined />} onClick={() => handleDelete(filter.id)}>Remove</Button>
 
                                     </td>
                                     {/* <td className="py-2 whitespace-nowrap text-sm text-gray-500">
