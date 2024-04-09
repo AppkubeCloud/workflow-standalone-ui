@@ -14,9 +14,12 @@ import { useDispatch, useSelector } from "react-redux";
 const page = () => {
   const router = useRouter();
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   useEffect(() => {
     console.log(reset);
   }, []);
+
+
   const [valid, setValid] = useState(true);
   const [passMatch, setPassMatch] = useState();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -26,25 +29,26 @@ const page = () => {
   const dispatch = useDispatch();
   const reset = useSelector((state) => state.resetPassword);
   console.log(reset);
+  
 
   const signupDetails = async (values) => {
     // setLoading(true);
     console.log("in finish");
     const data = {
-      email: "kelcy15828@4yyf.cse445.com",
-      //   email: reset.email,
-      otp: "275854",
+      //   email: "kelcy15828@4yyf.cse445.com",
+      email: reset.email,
+      otp: reset.otp,
       newPassword:
-        values.password === values.confirmpassword &&
-        values.password != "" &&
-        values.confirmpassword != ""
+        password === password2 &&
+        password != "" &&
+        password2 != ""
           ? password
           : "",
     };
     if (
-      values.password === values.confirmpassword &&
-      values.password != "" &&
-      values.confirmpassword != ""
+      password === password2 &&
+      password != "" &&
+      password2 != ""
     ) {
       setPassMatch(true);
       try {
@@ -62,11 +66,23 @@ const page = () => {
         console.log(response.message);
         //     if (response.status == 200) {
         router.push("/account/password/success");
+        // setTimeout(() => {
+        //   console.log(reset);
+        // }, 5000);
+        //     } else {
+        // setValid(false);
+        //
+        //       console.log(response);
+        //   }
       } catch (error) {
+        //     // console.log("error", error.response.data.message);
         console.log(error);
         console.log(error?.response?.data?.message);
         setValid(false);
       }
+      //    finally {
+      //     setLoading(false); // Set loading state to false after response or error is received
+      //   }
     } else {
       setPassMatch(false);
       console.log(
@@ -118,7 +134,7 @@ const page = () => {
             <Form
               className="flex flex-col"
               style={{ width: "50vh", fontSize: "1.1rem" }}
-              onFinish={signupDetails}
+            //   onFinish={signupDetails}
             >
               <Form.Item
                 name="Enter new password"
@@ -164,7 +180,7 @@ const page = () => {
                   }}
                   size="large"
                   required={true}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPassword2(e.target.value)}
                   autoComplete="new-password" // Added attribute
                 />
               </Form.Item>
@@ -173,8 +189,10 @@ const page = () => {
                   Invalid verification code provided, please try again.
                 </p>
               )}
+            </Form>
               <button
-                className="w-[83%]"
+                className="w-[83%] hover:bg-black z-10"
+                disabled={!(password == password2 && password != "" && password2!= "")}
                 style={{
                   fontSize: "1.2rem",
                   display: "flex",
@@ -187,10 +205,10 @@ const page = () => {
                   borderRadius: "3px",
                 }}
                 size="large"
+                onClick={signupDetails}
               >
                 Change Password
               </button>
-            </Form>
           </div>
         </div>
         <div className="mt-10">
