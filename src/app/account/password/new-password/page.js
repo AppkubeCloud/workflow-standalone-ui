@@ -4,6 +4,7 @@ import mainLogo from "../../../../../public/assets/SYNECTIKS-logo.svg";
 import passwordlogo from "../../../../../public/assets/My password-rafiki 1.svg";
 import { setNewPass } from "@/Context/Slices/resetPasswordSlice";
 import Image from "next/image";
+import Link from "next/link";
 import { EyeInvisibleOutlined } from "@ant-design/icons";
 import { Input, Form, Button } from "antd";
 import axios from "axios";
@@ -61,23 +62,11 @@ const page = () => {
         console.log(response.message);
         //     if (response.status == 200) {
         router.push("/account/password/success");
-        // setTimeout(() => {
-        //   console.log(reset);
-        // }, 5000);
-        //     } else {
-        // setValid(false);
-        //
-        //       console.log(response);
-        //   }
       } catch (error) {
-        //     // console.log("error", error.response.data.message);
         console.log(error);
         console.log(error?.response?.data?.message);
         setValid(false);
       }
-      //    finally {
-      //     setLoading(false); // Set loading state to false after response or error is received
-      //   }
     } else {
       setPassMatch(false);
       console.log(
@@ -94,6 +83,23 @@ const page = () => {
     <div>
       <div className="flex items-center justify-evenly">
         <div className="">
+          <Link href="/account/password/verification" className="flex mb-6">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 19.5 8.25 12l7.5-7.5"
+              />
+            </svg>
+            Back{" "}
+          </Link>
           <div className="left-card-wrapper rounded-5  w-[500px] h-[200px]  bg-primary-1 flex flex-col ">
             <div className="font-segoe-ui text-3xl font-bold leading-32 tracking-normal text-left mb-10 text-blue-500">
               <Image src={mainLogo} />
