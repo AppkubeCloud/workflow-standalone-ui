@@ -1,9 +1,28 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import bgImg from "../../../../../public/assets/ResetPasswordBg.svg";
 import Image from "next/image";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { setEmail } from "@/Context/Slices/resetPasswordSlice";
 import Link from "next/link";
 
 const Reset = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const reset = useSelector((state) => state.resetPassword);
+  console.log(reset);
+  const [email, setEmails] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmails(newEmail);
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isEmailValid = emailPattern.test(newEmail);
+    setIsButtonDisabled(!isEmailValid);
+  };
   return (
     <>
       <div className="flex pl-8 flex-row items-center h-screen">
@@ -16,7 +35,7 @@ const Reset = () => {
               Workflow Management
             </h1>
           </div>
-          <div >
+          <div>
             <Link href="/account/login" className="flex mb-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -65,18 +84,45 @@ const Reset = () => {
                     type="gmail"
                     className="input w-[100%] h-9 outline-none text-center  font-roboto text-base font-normal leading-6 tracking-normal"
                     placeholder="Enter Email Address"
+                    onChange={handleEmailChange}
                   ></input>
                 </div>
               </div>
+            </div>
 
-              <div className="flex new justify-between mt-5"></div>
-              <div className="mt-8 flex flex-col gap-2 items-center">
-                <Link href="/account/password/verification" className="w-[100%]">
-                <input
+            <div className="flex new justify-between mt-5"></div>
+            <div className="mt-8 flex flex-col gap-2 items-center">
+              <div className="w-[100%]">
+                <button
                   type="button"
                   value="Send otp"
-                  className="cursor-pointer w-[100%] bg-blue-500 text-white px-3 py-2 rounded w-28"
-                /></Link>
+                  disabled={isButtonDisabled}
+                  className={` ${
+                    isButtonDisabled
+                      ? "bg-slate-400"
+                      : "cursor-pointer hover:bg-blue-600 transition-all"
+                  } w-[380px] bg-blue-500 text-white px-3 py-2 rounded`}
+                  onClick={async () => {
+                    console.log(reset);
+                    dispatch(setEmail(email));
+                    try {
+                      const response = await axios.post(
+                        "https://68v4n18rx1.execute-api.us-east-1.amazonaws.com/dev/forgotPassword",
+                        {
+                          email: email,
+                        }
+                      );
+                      console.log(response);
+                      if (email) router.push("/account/password/verification");
+                      else alert("Enter email first");
+                    } catch (e) {
+                      console.log(e);
+                      alert("some error occured");
+                    }
+                  }}
+                >
+                  Send otp
+                </button>
               </div>
             </div>
           </form>
