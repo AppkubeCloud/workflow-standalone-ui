@@ -530,6 +530,7 @@ const RequirementForm = (stepperState) => {
           updatedDocs.push({
             doc_name: name,
             doc_url: response.data.doc_url,
+            
             type: "url",
           }),
             console.log("Docs", currentTask);
