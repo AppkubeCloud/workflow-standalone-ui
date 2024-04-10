@@ -11,6 +11,7 @@ import Image from "next/image";
 import user from "../../../public/assets/user.png"
 import { useRouter } from "next/navigation";
 import {addStepperValue, removeFormData, resourcePoolID, updateId, updateProjectName } from "@/Context/AddNewProjectSlice/addProjectSlice";
+import dayjs from "dayjs";
 
 const { Search } = Input;
 
@@ -217,7 +218,7 @@ const AddEmployReview = () => {
                 <div>
                   <p>Project Duration</p>
                   <h3 className="font-semibold">
-                    {projectData.startDate}TO {projectData.endDate}
+                  {dayjs(projectData.startDate).format('MMMM D, YYYY')} <span className="mx-2">To</span> {dayjs(projectData.endDate).format('MMMM D, YYYY')}
                   </h3>
                 </div>
               </div>
