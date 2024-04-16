@@ -1,12 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import bgImg from "../../../../../public/assets/ResetPasswordBg.svg";
+import mainLogo from "../../../../../public/assets/SYNECTIKS-logo.svg";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmail } from "@/Context/Slices/resetPasswordSlice";
 import Link from "next/link";
+import { notosans } from "@/font/font";
 
 const Reset = () => {
   const dispatch = useDispatch();
@@ -24,13 +26,13 @@ const Reset = () => {
     setIsButtonDisabled(!isEmailValid);
   };
   return (
-    <>
-      <div className="flex pl-8 flex-row items-center h-screen">
+    <main className={`${notosans.className} flex min-h-screen flex-col items-center justify-between`}>
+      <div className="flex px-6 flex-row items-center h-screen">
         <div className="flex flex-col h-screen p-10">
-          <div className="left-card-wrapper rounded-5  w-[500px] h-[200px]  bg-primary-1 flex flex-col ">
-            <h2 className="font-segoe-ui text-3xl font-bold leading-32 tracking-normal text-left mb-10 text-blue-500">
-              SYNECT<span className="text-red-500">I</span>KS
-            </h2>
+          <div className="left-card-wrapper rounded-5 w-[500px] h-[300px] bg-primary-1 flex flex-col ">
+            <div className="font-segoe-ui text-3xl font-bold leading-32 tracking-normal text-left mt-5 mb-10 text-blue-500">
+              <Image src={mainLogo} />
+            </div>
             <h1 className="font-segoe-ui text-4xl font-bold leading-11 tracking-tighter text-left mb">
               Workflow Management
             </h1>
@@ -60,11 +62,10 @@ const Reset = () => {
                 <h1 className="font-segoe-ui text-4xl font-bold leading-11 tracking-tighter text-left mb">
                   Forgot Password
                 </h1>
-                <p className="card-text font-segoe-ui text-l w-[500px]  leading-10 tracking-tighter text-left text-gray-400">
-                  Enter your registered email address. we’ll send you a code to
-                  reset your password.
+                <p className="card-text font-segoe-ui text-l w-[500px] leading-6 tracking-tighter text-left text-gray-300">
+                  Enter your registered email address. we’ll send you a code to reset your password.
                 </p>
-                <div className="flex items-center input w-[100%] h-10 p-2 text-center border border-blue-500 font-roboto text-base font-normal leading-6 tracking-normal">
+                <div className="flex items-center input w-[100%] h-10 p-2 mt-4 mb-2 text-center border border-gray-300 font-roboto text-base font-normal leading-6 tracking-normal">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -82,54 +83,51 @@ const Reset = () => {
 
                   <input
                     type="gmail"
-                    className="input w-[100%] h-9 outline-none text-center  font-roboto text-base font-normal leading-6 tracking-normal"
+                    className="input w-[100%] h-9 outline-none text-center font-roboto text-base font-normal leading-6 tracking-normal"
                     placeholder="Enter Email Address"
                     onChange={handleEmailChange}
                   ></input>
                 </div>
-              </div>
-            </div>
-
-            <div className="flex new justify-between mt-5"></div>
-            <div className="mt-8 flex flex-col gap-2 items-center">
-              <div className="w-[100%]">
-                <button
-                  type="button"
-                  value="Send otp"
-                  disabled={isButtonDisabled}
-                  className={` ${
-                    isButtonDisabled
-                      ? "bg-slate-400"
-                      : "cursor-pointer hover:bg-blue-600 transition-all"
-                  } w-[380px] bg-blue-500 text-white px-3 py-2 rounded`}
-                  onClick={async () => {
-                    console.log(reset);
-                    dispatch(setEmail(email));
-                    try {
-                      const response = await axios.post(
-                        "https://68v4n18rx1.execute-api.us-east-1.amazonaws.com/dev/forgotPassword",
-                        {
-                          email: email,
-                        }
-                      );
-                      console.log(response);
-                      if (email) router.push("/account/password/verification");
-                      else alert("Enter email first");
-                    } catch (e) {
-                      console.log(e);
-                      alert("some error occured");
-                    }
-                  }}
-                >
-                  Send otp
-                </button>
+                <div className="flex items-center w-[100%] pt-2">
+                  <button
+                    type="button"
+                    value="Send otp"
+                    disabled={isButtonDisabled}
+                    className={` ${
+                      isButtonDisabled
+                        ? "bg-slate-400"
+                        : "cursor-pointer hover:bg-blue-600 transition-all"
+                    } w-[100%] bg-blue-500 text-white px-3 py-2 rounded`}
+                    onClick={async () => {
+                      console.log(reset);
+                      dispatch(setEmail(email));
+                      try {
+                        const response = await axios.post(
+                          "https://68v4n18rx1.execute-api.us-east-1.amazonaws.com/dev/forgotPassword",
+                          {
+                            email: email,
+                          }
+                        );
+                        console.log(response);
+                        if (email)
+                          router.push("/account/password/verification");
+                        else alert("Enter email first");
+                      } catch (e) {
+                        console.log(e);
+                        alert("some error occured");
+                      }
+                    }}
+                  >
+                    Send otp
+                  </button>
+                </div>
               </div>
             </div>
           </form>
         </div>
-        <Image src={bgImg} className=" w-[650px] mt-4"></Image>
+        <Image src={bgImg} className="w-[625px] mt-4"></Image>
       </div>
-    </>
+    </main>
   );
 };
 

@@ -7,6 +7,7 @@ import reset from "../password/reset/page";
 import mainLogo from "../../../../public/assets/SYNECTIKS-logo.svg";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { notosans } from "@/font/font";
 
 const Login = () => {
   const route = useRouter()
@@ -28,17 +29,17 @@ const Login = () => {
   };
 
   return (
-    <>
+    <main className={`${notosans.className} flex min-h-screen flex-col items-center justify-between`}>
       <div className="flex px-6 flex-row items-center h-screen">
         <div className="flex flex-col h-screen p-10">
-          <div className="left-card-wrapper rounded-5  w-[500px] h-[200px]  bg-primary-1 flex flex-col ">
-            <div className="font-segoe-ui text-3xl font-bold leading-32 tracking-normal text-left mb-10 text-blue-500">
+          <div className="left-card-wrapper rounded-5 w-[500px] h-[200px] bg-primary-1 flex flex-col">
+            <div className="font-segoe-ui text-3xl font-bold leading-32 tracking-normal text-left mt-5 mb-10 text-blue-500">
               <Image src={mainLogo} />
             </div>
             <h1 className="font-segoe-ui text-4xl font-bold leading-11 tracking-tighter text-left mb">
               Workflow Management
             </h1>
-            <p className="card-text font-segoe-ui text-l  leading-10 tracking-tighter text-left text-gray-400">
+            <p className="card-text font-segoe-ui text-l leading-10 tracking-tighter text-left text-gray-400">
               Sign in to Manage your project and the team in easy way
             </p>
           </div>
@@ -48,12 +49,12 @@ const Login = () => {
                 <h2 className="font-segoe-ui text-3xl font-bold leading-11 tracking-tighter text-left mb">
                   Welcome 👋
                 </h2>
-                <p className="card-text font-segoe-ui text-sm  leading-10 tracking-tighter text-left text-gray-400">
+                <p className="card-text font-segoe-ui text-sm leading-6 tracking-tighter text-left text-gray-400 mb-5">
                   Please login here
                 </p>
               </div>
               <div className="flex input-main flex-col gap-7">
-                <div className="flex items-center input w-[100%] h-10 p-2 text-center border border-blue-500 font-roboto text-base font-normal leading-6 tracking-normal">
+                <div className="flex items-center input w-[100%] h-10 p-2 text-center border border-gray-300 font-roboto text-base font-normal leading-6 tracking-normal">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -78,7 +79,7 @@ const Login = () => {
                     })}
                   ></input>
                 </div>
-                <div className="flex items-center input w-[100%] h-10 p-2 text-center border border-blue-500 font-roboto text-base font-normal leading-6 tracking-normal">
+                <div className="flex items-center input w-[100%] h-10 p-2 text-center border border-gray-300 font-roboto text-base font-normal leading-6 tracking-normal">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -114,9 +115,9 @@ const Login = () => {
                   <input type="checkbox" /> <span> Remember me</span>
                 </div>
 
-                {/* <Link href="/account/password/reset" className="text-blue-500">
+                <Link href="/account/password/reset" className="text-blue-500">
                   Forgot your Password?
-                </Link> */}
+                </Link>
               </div>
 
               <div className="mt-8 flex flex-col gap-2 items-center">
@@ -126,21 +127,21 @@ const Login = () => {
                   value="Sign In"
                   className="cursor-pointer w-[100%] bg-blue-500 text-white px-3 py-2 rounded w-28"
                 /> */}
-                submit
+                Sign In
                 </Link>
-                {/* <p>
+                <p>
                   Need an account?{" "}
                   <span className="text-blue-500">
                     <Link href="/account/emailsignup">Create one</Link>
                   </span>
-                </p> */}
+                </p>
               </div>
             </div>
           </form>
         </div>
-        <Image src={login} className=" w-[650px] mt-4"></Image>
+        <Image src={login} className="w-[625px] mt-4"></Image>
       </div>
-    </>
+    </main>
   );
 };
 

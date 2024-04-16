@@ -7,12 +7,12 @@ import { notosans } from "@/font/font";
 
 export default function Home() {
   return (
-    <main className={`${notosans.className} flex min-h-screen flex-col items-center justify-between`}>
+    <>
       <Login />
       {/* <Dashboard/> */}
       {/* <Page/> */}
       {/* <Stepper/> */}
       {/* <WorkViewDetails/> */}
-    </main>
+    </>
   );
 }
