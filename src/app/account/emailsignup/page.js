@@ -3,18 +3,17 @@ import signupbg from "../../../../public/assets/signupBg.svg";
 import mainLogo from "../../../../public/assets/SYNECTIKS-logo.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { notosans } from "@/font/font";
 
 const Signup = () => {
   return (
-    <main className={`${notosans.className} flex min-h-screen flex-col items-center justify-between`}>
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="flex px-6 flex-row items-center h-screen">
         <div className="flex flex-col h-[100%] px-5">
           <div className="left-card-wrapper rounded-5 w-[500px] h-[150px] mt-10 bg-primary-1 flex flex-col">
-            <div className="font-segoe-ui text-3xl font-bold leading-32 tracking-normal text-left mt-5 mb-10 text-blue-500">
+            <div className="mt-5 mb-10">
               <Image src={mainLogo} />
             </div>
-            <h1 className="font-segoe-ui text-4xl font-bold leading-11 tracking-tighter text-left mb">
+            <h1 className="font-segoe-ui text-4xl font-medium leading-11 tracking-tighter text-left mb">
               Workflow Management
             </h1>
             <p className="card-text font-segoe-ui text-l leading-10 tracking-tighter text-left text-gray-400">
@@ -24,7 +23,7 @@ const Signup = () => {
           <form action="/main">
             <div className="login w-96 py-6 h-72 flex flex-col justify-between">
               <div>
-                <h2 className="font-segoe-ui text-3xl font-bold leading-11 tracking-tighter text-left mb">
+                <h2 className="font-segoe-ui text-3xl font-medium leading-11 tracking-tighter text-left mb">
                   Sign up as an User
                 </h2>
                 <p className="card-text font-segoe-ui text-sm leading-8 mb-10 tracking-tighter text-left text-gray-400">

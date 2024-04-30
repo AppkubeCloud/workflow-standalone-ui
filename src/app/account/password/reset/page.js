@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmail } from "@/Context/Slices/resetPasswordSlice";
 import Link from "next/link";
-import { notosans } from "@/font/font";
 
 const Reset = () => {
   const dispatch = useDispatch();
@@ -26,14 +25,14 @@ const Reset = () => {
     setIsButtonDisabled(!isEmailValid);
   };
   return (
-    <main className={`${notosans.className} flex min-h-screen flex-col items-center justify-between`}>
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="flex px-6 flex-row items-center h-screen">
         <div className="flex flex-col h-screen p-10">
           <div className="left-card-wrapper rounded-5 w-[500px] h-[300px] bg-primary-1 flex flex-col ">
-            <div className="font-segoe-ui text-3xl font-bold leading-32 tracking-normal text-left mt-5 mb-10 text-blue-500">
+            <div className="mt-5 mb-10">
               <Image src={mainLogo} />
             </div>
-            <h1 className="font-segoe-ui text-4xl font-bold leading-11 tracking-tighter text-left mb">
+            <h1 className="font-segoe-ui text-4xl font-medium leading-11 tracking-tighter text-left mb">
               Workflow Management
             </h1>
           </div>
@@ -59,7 +58,7 @@ const Reset = () => {
           <form action="/main">
             <div className="login w-96 h-72 flex flex-col ">
               <div className="flex input-main flex-col gap-2">
-                <h1 className="font-segoe-ui text-4xl font-bold leading-11 tracking-tighter text-left mb">
+                <h1 className="font-segoe-ui text-3xl font-medium leading-11 tracking-tighter text-left mb">
                   Forgot Password
                 </h1>
                 <p className="card-text font-segoe-ui text-l w-[500px] leading-6 tracking-tighter text-left text-gray-300">

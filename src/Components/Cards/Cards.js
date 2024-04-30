@@ -31,27 +31,28 @@ const DashCards = () => {
   }, []);
 
   return (
-    <Row gutter={[34, 34]} style={{ width: "100vw" }} >
+    <Row gutter={[20, 20]} style={{ width: "100vw" }} >
       <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
-          className="h-[14rem]"
+          className="h-[12rem]"
           bordered={false}
           style={{
-            boxShadow: "0px 0px 5px 1px rgba(0 , 0, 0, 0.2)",
+            boxShadow: "0px 0px 2px 0px rgba(0 , 0, 0, 0.1)",
             width: "100%",
-            padding: "10px",
+            borderRadius: "2px",
+            padding: "0px",
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="text-lg leading-snug text-left text-black font-semibold">
-              Total Projects{" "}
+            <span className="text-lg leading-snug text-left text-gray-500 font-semibold">
+              Total Projects
             </span>
             <CheckCircleOutlined style={{ color: "#1890FF" }} />
           </div>
           <Title level={2}>{data.total_projects}</Title>
-          {/* <p className="text-sm font-semibold leading-snug text-left">
+          <p className="text-sm font-semibold leading-snug text-left">
             Progress {data.percentage_completed}%
-          </p> */}
+          </p>
           <Progress
             type="line"
             percent={data.percentage_completed}
@@ -64,21 +65,21 @@ const DashCards = () => {
           </Paragraph>
         </Card>
       </Col>
-
       <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
-          className="h-[14rem]"
-          style={{
-            boxShadow: "0px 0px 5px 1px rgba(0 , 0, 0, 0.2)",
-            width: "100%",
-            padding: "10px",
-          }}
+          className="h-[12rem]"
           bordered={false}
+          style={{
+            boxShadow: "0px 0px 2px 0px rgba(0 , 0, 0, 0.1)",
+            width: "100%",
+            borderRadius: "2px",
+            padding: "0px",
+          }}
         >
           <div className="flex items-center justify-between">
-            <span className="text-lg leading-snug text-left text-black font-semibold">
-              Completed Projects{" "}
-            </span>{" "}
+            <span className="text-lg leading-snug text-left text-gray-500 font-semibold">
+              Completed Projects
+            </span>
             <IssuesCloseOutlined style={{ color: "#52C41A" }} />
           </div>
           <Title level={2}>{data.completed}</Title>
@@ -99,18 +100,19 @@ const DashCards = () => {
       </Col>
       <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
-          className="h-[14rem]"
-          style={{
-            boxShadow: "0px 0px 5px 1px rgba(0 , 0, 0, 0.2)",
-            width: "100%",
-            padding: "10px",
-          }}
+          className="h-[12rem]"
           bordered={false}
+          style={{
+            boxShadow: "0px 0px 2px 0px rgba(0 , 0, 0, 0.1)",
+            width: "100%",
+            borderRadius: "2px",
+            padding: "0px",
+          }}
         >
           <div className="flex items-center justify-between">
-            <span className="text-lg leading-snug text-left text-black font-semibold">
-              Inprogress Projects{" "}
-            </span>{" "}
+            <span className="text-lg leading-snug text-left text-gray-500 font-semibold">
+              Inprogress Projects
+            </span>
             <ClockCircleOutlined style={{ color: "#FAAD14" }} />
           </div>
           <Title level={2}>{data.in_progress}</Title>
@@ -129,20 +131,20 @@ const DashCards = () => {
           </Paragraph>
         </Card>
       </Col>
-
       <Col xs={24} sm={12} md={12} lg={6} xl={6}>
         <Card
-          className="h-[14rem]"
-          style={{
-            boxShadow: "0px 0px 5px 1px rgba(0 , 0, 0, 0.2)",
-            width: "100%",
-            padding: "10px",
-          }}
+          className="h-[12rem]"
           bordered={false}
+          style={{
+            boxShadow: "0px 0px 2px 0px rgba(0 , 0, 0, 0.1)",
+            width: "100%",
+            borderRadius: "2px",
+            padding: "0px",
+          }}
         >
           <div className="flex items-center justify-between">
-            <span className="text-lg leading-snug text-left text-black font-semibold">
-              Unassign Projects{" "}
+            <span className="text-lg leading-snug text-left text-gray-500 font-semibold">
+              Unassign Projects
             </span>{" "}
             <StopOutlined style={{ color: "#FF4D4F" }} />
           </div>
@@ -159,7 +161,7 @@ const DashCards = () => {
             trailColor="#F6EEFF"
           />
           <Paragraph className="pt-4 text-sm font-normal leading-snug text-left text-black">
-            view Details
+            View Details
           </Paragraph>
         </Card>
       </Col>
