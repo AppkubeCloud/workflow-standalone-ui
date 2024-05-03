@@ -1,27 +1,21 @@
 "use client";
 import React from "react";
-import { DataStore } from "@aws-amplify/datastore";
-
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import NavLink from "@/app/nav-link";
-
-import { Form, Input, Upload, Button, message, DatePicker,notification } from "antd";
+import {
+  Form,
+  Input,
+  Upload,
+  Button,
+  message,
+  DatePicker,
+  notification,
+} from "antd";
 import { useSelector } from "react-redux";
-import apiFetch from "@/api";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { UploadOutlined } from "@ant-design/icons";
-import useProject from "@/HOC/Project/Project";
-
-
-const { RangePicker } = DatePicker;
-
-
-
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { FormData, updateProjectName, UpdateStartDate } from "@/Context/AddNewProjectSlice/addProjectSlice";
+import { FormData } from "@/Context/AddNewProjectSlice/addProjectSlice";
 
 const layout = {
   labelCol: {
@@ -47,16 +41,12 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
   const [imageBase64, setImageBase64] = useState();
   const [api, contextHolder] = notification.useNotification();
 
-
   const openNotification = (placement, type, message) => {
     api[type]({
       message: message,
       placement: placement,
     });
   };
-
-
-
 
   const formData = useSelector((state) => state.addProject.Projectform);
   const [startDate, setStartDate] = useState(null);
@@ -76,11 +66,9 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
     setProject(formData || initialProjectState);
   }, [formData]);
 
-
-
   const disabledEndDate = (current) => {
     // Disable dates that are before the selected start date or are the selected start date
-    return current && (current <= startDate);
+    return current && current <= startDate;
   };
   const dispatch = useDispatch();
 
@@ -90,10 +78,12 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
     dispatch(FormData({ ...project, [e.target.name]: e.target.value }));
     // dispatch(updateFormData({ ...project, [e.target.name]: e.target.value }));
 
-    console.log(project)
+    console.log(project);
   };
   const handleStartDateChange = (date, dateString) => {
-    const formattedStartDate = moment(dateString).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
+    const formattedStartDate = moment(dateString).format(
+      "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+    );
     setStartDate(date);
     setProject({
       ...project,
@@ -104,9 +94,10 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
     dispatch(FormData({ ...project, startDate: formattedStartDate }));
   };
 
-
   const handleEndDateChange = (date, dateString) => {
-    const formattedStartDate = moment(dateString).format("YYYY-MM-DDTHH:mm:ss.SSS[Z]");
+    const formattedStartDate = moment(dateString).format(
+      "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+    );
 
     setProject({
       ...project,
@@ -128,9 +119,7 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
     if (allFiles.length > 1) {
       // If more than one file is uploaded, keep only the first one
       // openNotification("topRight", "error", "No Multiple Project Logo");
-      message.error(
-        "Only one logo per project allowed"
-      );
+      message.error("Only one logo per project allowed");
       allFiles.splice(1);
     }
     const imgarray = allFiles.map((e) => e.originFileObj);
@@ -142,18 +131,18 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
   const convertImagesToBase64 = async (images) => {
     const newConvertedImages = [];
     // for (let i = 0; i < images.length; i++) {
-      const i = 0
-      const file = images[i];
-      if (file) {
-        const reader = new FileReader();
-        const base64 = await new Promise((resolve, reject) => {
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
-        newConvertedImages.push({ fileName: file.name, data: base64 });
-        setProject({ ...project, image_url: base64 })
-        dispatch(FormData({ ...project, image_url: base64 }))
+    const i = 0;
+    const file = images[i];
+    if (file) {
+      const reader = new FileReader();
+      const base64 = await new Promise((resolve, reject) => {
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      newConvertedImages.push({ fileName: file.name, data: base64 });
+      setProject({ ...project, image_url: base64 });
+      dispatch(FormData({ ...project, image_url: base64 }));
       // }
     }
     setConvertedImages(newConvertedImages);
@@ -168,13 +157,12 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
   const router = useRouter();
 
   // useProject
-  const projectData = useSelector(state => state.addProject);
-  console.log(projectData)
+  const projectData = useSelector((state) => state.addProject);
+  console.log(projectData);
   function disabledDate(current) {
     // Disable all dates before today
-    return current && current < moment().startOf('day');
+    return current && current < moment().startOf("day");
   }
-
 
   return (
     <div>
@@ -218,7 +206,8 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
               name="projectDescription"
               id="projectDescription"
               value={project.projectDescription}
-              onChange={handleChange} />
+              onChange={handleChange}
+            />
           </Form.Item>
 
           <Form.Item
@@ -234,21 +223,22 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
               name="projectDepartment"
               id="projectDepartment"
               value={project.projectDepartment}
-              onChange={handleChange} />
+              onChange={handleChange}
+            />
           </Form.Item>
 
           <Form.Item name="range-time-picker" label="Project Duration">
-            <div className="flex">
+            <div className="flex items-center">
               <DatePicker
                 id="projectStartDate"
                 placeholder="Start Date"
-                className="text-slate-500 font-sans text-sm font-normal not-italic leading-6 pb-1 self-stretch items-center flex-1 border rounded-sm border-slate-200  px-1 py-1 h-8 w-[184px] m-1"
+                className="text-slate-500 font-sans text-sm font-normal not-italic leading-6 pb-1 self-stretch items-center flex-1 border rounded-sm border-slate-200 px-1 py-1 h-8 w-[184px] m-1"
                 // value={project.startDate}
                 onChange={handleStartDateChange}
                 disabledDate={disabledDate}
-              // value={project.startDate}
+                // value={project.startDate}
               />
-              <span>-</span>
+              <span> - </span>
               <DatePicker
                 id="projectEndDate"
                 placeholder="End Date"
@@ -272,7 +262,6 @@ const AddNewProjectForm = ({ receiveFormDataFromChild }) => {
             >
               <Button icon={<UploadOutlined />}>Upload</Button>
             </Upload> */}
-
 
             <Upload
               name="image_url"

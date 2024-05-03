@@ -1,0 +1,32 @@
+:where(.css-dev-only-do-not-override-dkbvqv).ant-tabs-left
+  > .ant-tabs-nav
+  .ant-tabs-tab
+  + .ant-tabs-tab {
+  margin-top: 0 !important;
+}
+:where(.css-dev-only-do-not-override-dkbvqv).ant-tabs-left
+  > .ant-tabs-content-holder
+  > .ant-tabs-content
+  > .ant-tabs-tabpane {
+  border-left: none;
+  padding-left: 0;
+}
+:where(.css-dev-only-do-not-override-dkbvqv).ant-tabs-left
+  > .ant-tabs-content-holder {
+  border-left: none;
+}
+:where(.css-dev-only-do-not-override-dkbvqv).ant-tabs-left
+  > .ant-tabs-nav
+  .ant-tabs-tab {
+  padding-top: 0;
+  padding-bottom: 15px;
+}
+.add-resoucre-box {
+  border-color: #aadddd;
+}
+.add-resoucre-box button .anticon {
+  margin-right: 0px !important;
+}
+.add-resoucre-box .members-text {
+  color: #4f7396;
+}

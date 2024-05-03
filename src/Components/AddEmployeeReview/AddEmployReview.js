@@ -1,16 +1,26 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { Button } from "antd";
 import { Input } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { addProjectId, removeResources, removeResourcesInfo } from "@/Context/AddresourcesSlice/addresourcesSlice";
+import {
+  addProjectId,
+  removeResources,
+  removeResourcesInfo,
+} from "@/Context/AddresourcesSlice/addresourcesSlice";
 
 import Image from "next/image";
 
-import user from "../../../public/assets/user.png"
+import user from "../../../public/assets/user.png";
 import { useRouter } from "next/navigation";
-import {addStepperValue, removeFormData, resourcePoolID, updateId, updateProjectName } from "@/Context/AddNewProjectSlice/addProjectSlice";
+import {
+  addStepperValue,
+  removeFormData,
+  resourcePoolID,
+  updateId,
+  updateProjectName,
+} from "@/Context/AddNewProjectSlice/addProjectSlice";
 import dayjs from "dayjs";
 
 const { Search } = Input;
@@ -18,7 +28,9 @@ const { Search } = Input;
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
 const AddEmployReview = () => {
-  const ProductManager = useSelector((state) => state.addResources.ProjectManager);
+  const ProductManager = useSelector(
+    (state) => state.addResources.ProjectManager
+  );
   const Uxdesigner = useSelector((state) => state.addResources.UXDesigner);
   const UiDesigner = useSelector((state) => state.addResources.UIDeveloper);
   const ApiDeveloper = useSelector((state) => state.addResources.APIDeveloper);
@@ -30,7 +42,6 @@ const AddEmployReview = () => {
   const projectId = useSelector((state) => state.addProject.id);
   const projectData = useSelector((state) => state.addProject.Projectform);
   // const projectId = useSelector((state) => state.addProject.id);
-
 
   // console.log(projectId);
   console.log(projectData);
@@ -45,15 +56,13 @@ const AddEmployReview = () => {
 
   const route = useRouter();
   const routerFunction = (data) => {
-    route.push(data)
-  }
+    route.push(data);
+  };
   const ProjectId = (ProjectId) => {
-
     // dispatch(resourcePoolID(ProjectId))
 
-    console.log("Dispatched-ProjectID", ProjectId)
+    console.log("Dispatched-ProjectID", ProjectId);
   };
-
 
   const Apisubmit = async (projectData) => {
     console.log("Clicked");
@@ -88,7 +97,7 @@ const AddEmployReview = () => {
         console.log("success:", result, result.id);
         dispatch(updateId(result.id));
         dispatch(addProjectId(result.id));
-        dispatch(updateProjectName(projectData.ProjectName))
+        dispatch(updateProjectName(projectData.ProjectName));
         // Update projectId in local storage
 
         handleCreatingTeam(result.id);
@@ -148,8 +157,8 @@ const AddEmployReview = () => {
       .request(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
-        dispatch(removeResourcesInfo([]))
-        dispatch(removeFormData({}))
+        dispatch(removeResourcesInfo([]));
+        dispatch(removeFormData({}));
         routerFunction("/main/projects/workflowlist");
       })
       .catch((error) => {
@@ -159,68 +168,69 @@ const AddEmployReview = () => {
   const axios = require("axios");
 
   return (
-    <div>
-      <div>
-        <div className="rounded-md mt-5 space-y-5 p-5 bg-white ml-7">
-          <div className="flex justify-between">
-            <h1 className="text-xl font-bold leading-snug tracking-normal text-left">
-              Setup project
-            </h1>
-            <div className="space-x-8">
-              <Button
-                icon={<EditOutlined />}
-                onClick={() => {
-                  dispatch(addStepperValue("0"));
-                }}
-              >
-                Edit
-              </Button>
+    <div className="d-block">
+      <div className="rounded-md mt-5 space-y-5 p-5 bg-white">
+        <div className="flex justify-between">
+          <h1 className="text-xl font-bold leading-snug tracking-normal text-left">
+            Setup project
+          </h1>
+          <div className="space-x-3">
+            <Button
+              icon={<EditOutlined />}
+              onClick={() => {
+                dispatch(addStepperValue("0"));
+              }}
+              className="rounded-none"
+            >
+              Edit
+            </Button>
 
-              <Button
-                type="primary"
-                className="bg-blue-500"
-                onClick={() => {
-                  Apisubmit(projectData)
-                }}
-              >
-                create
-              </Button>
-            </div>
+            <Button
+              type="primary"
+              className="bg-blue-500 rounded-none"
+              onClick={() => {
+                Apisubmit(projectData);
+              }}
+            >
+              create
+            </Button>
           </div>
-          <div className="flex space-x-10 w-screen items-center">
-            <div>
-              <img
-                src={projectData.image_url}
-                className="w-[7rem] h-[7rem] rounded-md"
-              />
-            </div>
-            <div className="flex  ">
-              <div className="p-5 space-y-10 mx-5">
-                <div>
-                  <p>Project Name</p>
-                  <h3 className="font-semibold">{projectData.ProjectName}</h3>
-                </div>
-                <div>
-                  <p>Project department</p>
-                  <h3 className="font-semibold">
-                    {projectData.projectDepartment}
-                  </h3>
-                </div>
+        </div>
+        <div className="flex space-x-10 w-100 items-center">
+          <div>
+            <img
+              src={projectData.image_url}
+              className="w-[7rem] h-[7rem] rounded-md"
+            />
+          </div>
+          <div className="flex  ">
+            <div className="p-5 space-y-10 mx-5">
+              <div>
+                <p>Project Name</p>
+                <h3 className="font-semibold">{projectData.ProjectName}</h3>
               </div>
+              <div>
+                <p>Project department</p>
+                <h3 className="font-semibold">
+                  {projectData.projectDepartment}
+                </h3>
+              </div>
+            </div>
 
-              <div className="p-5 space-y-10 mx-5">
-                <div>
-                  <p>Project Description</p>
-                  <h3 className="font-semibold">
-                    {projectData.projectDescription}
-                  </h3>
-                </div>
-                <div>
-                  <p>Project Duration</p>
-                  <h3 className="font-semibold">
-                  {dayjs(projectData.startDate).format('MMMM D, YYYY')} <span className="mx-2">To</span> {dayjs(projectData.endDate).format('MMMM D, YYYY')}
-                  </h3>
-                </div>
+            <div className="p-5 space-y-10 mx-5">
+              <div>
+                <p>Project Description</p>
+                <h3 className="font-semibold">
+                  {projectData.projectDescription}
+                </h3>
+              </div>
+              <div>
+                <p>Project Duration</p>
+                <h3 className="font-semibold">
+                  {dayjs(projectData.startDate).format("MMMM D, YYYY")}{" "}
+                  <span className="mx-2">To</span>{" "}
+                  {dayjs(projectData.endDate).format("MMMM D, YYYY")}
+                </h3>
               </div>
             </div>
           </div>
@@ -229,7 +239,7 @@ const AddEmployReview = () => {
 
       {/* //REsourcess------------------------------ */}
 
-      <div className="mt-5 flex flex-col space-y-4 bg-white rounded-md p-10">
+      <div className="mt-5 flex flex-col space-y-5 bg-white rounded-md p-5">
         <div className="flex justify-between">
           <h1 className="text-2xl font-semibold leading-normal tracking-normal text-left">
             Resource Pool
@@ -241,74 +251,84 @@ const AddEmployReview = () => {
               style={{
                 width: "16.5rem",
                 height: "2rem",
+                borderRadius: "0px"
               }}
             />
           </div>
         </div>
-
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider pl-10 " style={{ width: '30%' }}>
+                <th
+                  className="px-6 py-3 text-left text-xs font-medium text-black tracking-wider pl-10 "
+                  style={{ width: "30%" }}
+                >
                   Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider border border-y-0 border-r-0 border-l-2" style={{ width: '20%' }}>
+                <th
+                  className="px-6 py-3 text-left text-xs font-medium text-black tracking-wider border border-y-0 border-r-0 border-l-2"
+                  style={{ width: "20%" }}
+                >
                   Designation
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase tracking-wider pl-10 border border-y-0 border-r-0 border-l-2" style={{ width: '20%' }}>
+                <th
+                  className="px-6 py-3 text-left text-xs font-medium text-black tracking-wider pl-10 border border-y-0 border-r-0 border-l-2"
+                  style={{ width: "20%" }}
+                >
                   Mail ID
                 </th>
-                <th className="px-6 ml-9 py-3 text-left text-xs font-medium text-black uppercase tracking-wider border border-y-0 border-r-0 border-l-2" colSpan={2} style={{ width: '20%' }}>
+                <th
+                  className="px-6 ml-9 py-3 text-left text-xs font-medium text-black tracking-wider border border-y-0 border-r-0 border-l-2"
+                  colSpan={2}
+                  style={{ width: "20%" }}
+                >
                   Actions
                 </th>
               </tr>
             </thead>
-            {ResourceAdded.map(
-              (resource, index) => (
-                (
-                  <tbody
-                    key={index}
-                    className="bg-white divide-y divide-gray-200"
-                  >
-                    <tr className="bg-white">
-                      <td className="py-2 whitespace-nowrap">
-                        <div className="flex items-center space-x-5 pl-1">
-                          <Image src={resource.image ? resource.image : user} height={35} width={35} />
-                          <div className="text-sm font-medium text-gray-900">
-                            {resource.name}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-2 pl-5 text-sm text-left font-medium text-gray-900">
-                        {resource.Designation}
-                      </td>
-                      <td className="py-2 pl-5 text-sm font-medium text-gray-900">
-                        {resource.email}
-                      </td>
-                      <td className="py-2 whitespace-nowrap text-sm space-x-5 pl-2">
-                        <Button
-                          icon={<EditOutlined />}
-                          onClick={() => {
-                            dispatch(addStepperValue("1"));
-                          }}
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          type="primary"
-                          danger
-                          icon={<DeleteOutlined />}
-                          onClick={() => handleDelete(resource.id)}
-                        >
-                          Remove
-                        </Button>
-                      </td>
-                    </tr>
-                  </tbody>
-                )
-              )
-            )}
+            {ResourceAdded.map((resource, index) => (
+              <tbody key={index} className="bg-white divide-y divide-gray-200">
+                <tr className="bg-white">
+                  <td className="py-2 whitespace-nowrap">
+                    <div className="flex items-center space-x-5 pl-1">
+                      <Image
+                        src={resource.image ? resource.image : user}
+                        height={35}
+                        width={35}
+                      />
+                      <div className="text-sm font-medium text-gray-900">
+                        {resource.name}
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-2 pl-5 text-sm text-left font-medium text-gray-900">
+                    {resource.Designation}
+                  </td>
+                  <td className="py-2 pl-5 text-sm font-medium text-gray-900">
+                    {resource.email}
+                  </td>
+                  <td className="py-2 whitespace-nowrap text-sm space-x-5 pl-2">
+                    <Button
+                      icon={<EditOutlined />}
+                      onClick={() => {
+                        dispatch(addStepperValue("1"));
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      type="primary"
+                      danger
+                      icon={<DeleteOutlined />}
+                      onClick={() => handleDelete(resource.id)}
+                    >
+                      Remove
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
+            ))}
           </table>
         </div>
       </div>
@@ -316,4 +336,3 @@ const AddEmployReview = () => {
   );
 };
 export default AddEmployReview;
-
