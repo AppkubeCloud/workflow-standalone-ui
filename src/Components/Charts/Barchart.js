@@ -60,6 +60,16 @@ const Barchart = () => {
             bottom: 0,
           }}
         >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend
+            iconType="circle"
+            align="right"
+            verticalAlign="top"
+            wrapperStyle={{ top: -20, right: 35 }}
+          />
           <Bar
             dataKey="complete"
             name="Completed Usecase"
@@ -72,13 +82,10 @@ const Barchart = () => {
             name="Incomplete Usecase"
             fill="#B37FEB"
             barSize={36}
-            activeBar={<Rectangle fill="#B37FEB" stroke="purple" barSize={12} />}
+            activeBar={
+              <Rectangle fill="#B37FEB" stroke="purple" barSize={12} />
+            }
           />
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend iconType="circle" align="right" verticalAlign="top" wrapperStyle={{top: -20, right: 35}}/>
         </BarChart>
       </ResponsiveContainer>
     </>

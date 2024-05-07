@@ -30,7 +30,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white my-6 pt-5 pr-10 pb-5 pl-10">
+      <div className="bg-white my-6 p-5">
         <div className="flex flex-col justify-center items-start">
           <div className="flex flex-col">
             <h2 className={`${roboto.className} text-2xl`}>

@@ -1,3 +1,27 @@
+.work-flow-tabs {
+  border: none;
+  margin-bottom: 0;
+}
+
+.work-flow-tabs .ant-tabs-nav {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  background-color: #ffffff;
+}
+.work-flow-tabs .ant-tabs-content-holder {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 1.25rem;
+}
+
+.work-flow-tabs .work-flow-inner-tabs .ant-tabs-nav {
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
+
+
 .step-item {
   @apply relative flex gap-2 justify-start items-center w-52  ;
 }

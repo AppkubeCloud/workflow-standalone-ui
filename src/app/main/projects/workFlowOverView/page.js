@@ -37,14 +37,13 @@ const WorkFlowOverView = () => {
 
   return (
     <>
-
       {/*  Workflow */}
       <section className="flex flex-col w-auto h-auto border rounded">
         {unSavedTamplate === false && (
           <div>
             <div className=" flex flex-row justify-between py-2 items-center w-auto bg-white  px-5">
               <p className="text-black font-sans text-lg not-italic font-semibold ">
-                Workflows{" "}
+                Workflows
               </p>
               {/* <Hamburger /> */}
             </div>
@@ -150,8 +149,6 @@ const WorkFlowOverView = () => {
             </div>
           </>
         )}
-
-
       </section>
     </>
   );

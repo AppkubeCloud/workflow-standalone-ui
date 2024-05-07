@@ -192,7 +192,7 @@ const AddEmployReview = () => {
                 Apisubmit(projectData);
               }}
             >
-              create
+              Create
             </Button>
           </div>
         </div>
@@ -203,7 +203,7 @@ const AddEmployReview = () => {
               className="w-[7rem] h-[7rem] rounded-md"
             />
           </div>
-          <div className="flex  ">
+          <div className="flex">
             <div className="p-5 space-y-10 mx-5">
               <div>
                 <p>Project Name</p>
@@ -251,7 +251,7 @@ const AddEmployReview = () => {
               style={{
                 width: "16.5rem",
                 height: "2rem",
-                borderRadius: "0px"
+                borderRadius: "0px",
               }}
             />
           </div>
@@ -287,9 +287,9 @@ const AddEmployReview = () => {
                 </th>
               </tr>
             </thead>
-            {ResourceAdded.map((resource, index) => (
-              <tbody key={index} className="bg-white divide-y divide-gray-200">
-                <tr className="bg-white">
+            <tbody className="bg-white divide-gray-200">
+              {ResourceAdded.map((resource, index) => (
+                <tr className="bg-white" key={index}>
                   <td className="py-2 whitespace-nowrap">
                     <div className="flex items-center space-x-5 pl-1">
                       <Image
@@ -327,8 +327,8 @@ const AddEmployReview = () => {
                     </Button>
                   </td>
                 </tr>
-              </tbody>
-            ))}
+              ))}
+            </tbody>
           </table>
         </div>
       </div>

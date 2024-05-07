@@ -59,13 +59,13 @@ const StackedBarChart = () => {
       complete: 8,
     },
     {
-      name: "oliver",
+      name: "Oliver",
       pending: 20,
       inprogress: 5,
       complete: 8,
     },
     {
-      name: "tony",
+      name: "Tony",
       pending: 19,
       inprogress: 10,
       complete: 12,
@@ -83,31 +83,31 @@ const StackedBarChart = () => {
       complete: 7,
     },
     {
-      name: "john",
+      name: "John",
       pending: 10,
       inprogress: 14,
       complete: 8,
     },
     {
-      name: "alex",
+      name: "Alex",
       pending: 19,
       inprogress: 10,
       complete: 12,
     },
     {
-      name: "jack",
+      name: "Jack",
       pending: 10,
       inprogress: 14,
       complete: 8,
     },
     {
-      name: "petter",
+      name: "Petter",
       pending: 20,
       inprogress: 5,
       complete: 8,
     },
     {
-      name: "adam",
+      name: "Adam",
       pending: 19,
       inprogress: 10,
       complete: 12,
@@ -116,7 +116,7 @@ const StackedBarChart = () => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart
-        width={'100%'}
+        width={"100%"}
         height={300}
         data={ChartData}
         margin={{
@@ -130,14 +130,36 @@ const StackedBarChart = () => {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Legend iconType="circle" align="right" verticalAlign="top" wrapperStyle={{top: -20, right: 0}} />
-        <Bar dataKey="pending" barSize={40} name="Pending Task" stackId="a" fill="#006D75" />
-        <Bar dataKey="inprogress" barSize={40} name="In progress Task " stackId="a" fill="#13C2C2" />
-        <Bar dataKey="complete" barSize={40} name="Completed Task" stackId="a" fill="#87E8DE" />
+        <Legend
+          iconType="circle"
+          align="right"
+          verticalAlign="top"
+          wrapperStyle={{ top: -25, right: 0 }}
+        />
+        <Bar
+          dataKey="pending"
+          barSize={40}
+          name="Pending Task"
+          stackId="a"
+          fill="#006D75"
+        />
+        <Bar
+          dataKey="inprogress"
+          barSize={40}
+          name="In progress Task "
+          stackId="a"
+          fill="#13C2C2"
+        />
+        <Bar
+          dataKey="complete"
+          barSize={40}
+          name="Completed Task"
+          stackId="a"
+          fill="#87E8DE"
+        />
       </BarChart>
     </ResponsiveContainer>
   );
 };
 
 export default StackedBarChart;
-

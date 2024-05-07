@@ -8,13 +8,13 @@ import SubStagesStepper from "./SubStagesStepper";
 import UseCasesOverView from "@/Components/AddUsecaseStepperForms/UseCasesOverView";
 import Planning from "@/Components/AddUsecaseStepperForms/Planning";
 import AssetView from "@/Components/AddUsecaseStepperForms/AssertView";
-
+import { notosans } from "@/font/font";
 import { Tabs } from "antd";
 
 const Stepper = () => {
   const projectName = useSelector((state) => state.addProject.ProjectName);
   const UseCaseNames = useSelector((state) => state.addUsecase.UseCaseNames);
-  console.log(UseCaseNames)
+  console.log(UseCaseNames);
   const items = [
     {
       key: "1",
@@ -29,7 +29,7 @@ const Stepper = () => {
     {
       key: "3",
       label: "Asset view",
-      children: <AssetView/>,
+      children: <AssetView />,
     },
     {
       key: "4",
@@ -39,47 +39,37 @@ const Stepper = () => {
   ];
 
   return (
-    <>
-      <div className=" px-2 ">
+    <div style={{ margin: "0px", padding: "0px", minHeight: 280 }}>
+      <div className="bg-white px-5 pt-5 pb-2 space-y-3">
         <Breadcrumb
-          className="bg-white p-2"
           items={[
             {
-              // title: <a path="/main"> Home</a>
-              path: '/main',
-              breadcrumbName: 'Home'
+              path: "/main",
+              breadcrumbName: "Home",
             },
             {
-              path: '/main/projects',
-              breadcrumbName: { projectName }
-              // title: <a href="/main/projects">{projectName}</a>,
+              path: "/main/projects",
+              breadcrumbName: { projectName },
             },
             {
-              path: '/main/projects/developmentUsecases',
-              breadcrumbName: 'Development WorkFlow'
-              // title: <a href="/main/projects/developmentUsecases">Development WorkFlow</a>,
+              path: "/main/projects/developmentUsecases",
+              breadcrumbName: "Development WorkFlow",
             },
             {
               title: `${UseCaseNames}`,
             },
           ]}
         />
-        <div className=" bg-white p-4">
-          <h1 className="flex w-[100%] bg-white  h-7 flex-col justify-center text-black  text-2xl non-italic font-semibold leading-snug">
-            {UseCaseNames}
-          </h1>
-          <p>
-            Form pages are used to collect or verify information to users, and
-            basic forms are common in scenarios where there are fewer data
-            items.
-          </p>
-
-          <div className="mt-3   ">
-            <Tabs defaultActiveKey="1" items={items} />
-          </div>
-        </div>
+        <h1 className={`${notosans.className} capitalize text-2xl`}>
+          {UseCaseNames}
+        </h1>
+        <p>
+          Form pages are used to collect or verify information to users, and
+          basic forms are common in scenarios where there are fewer data items.
+        </p>
       </div>
-    </>
+      <Tabs defaultActiveKey="1" className="work-flow-tabs" items={items} />
+    </div>
   );
 };
 

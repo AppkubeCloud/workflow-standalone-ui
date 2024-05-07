@@ -37,7 +37,7 @@ const page = () => {
     return (
         <div>
             <div className='w-full bg-white'>
-                <div className='p-5'>
+                <div className='p-0'>
                     <h1 className='text-black font-semibold text-2xl'>Create Project</h1>
                      <p className='text-black font-semibold '>Form pages are used to collect or verify information to users, and basic forms are common in scenarios where there are fewer data items.</p>
                 </div>

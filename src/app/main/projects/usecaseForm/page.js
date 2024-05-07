@@ -1,10 +1,19 @@
 "use client";
-import { Form, Input, Upload, Button, message, DatePicker, notification, Select, Breadcrumb } from "antd";
-import Link from "next/link";
+import {
+  Form,
+  Input,
+  Upload,
+  Button,
+  message,
+  DatePicker,
+  notification,
+  Select,
+  Breadcrumb,
+} from "antd";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from 'next/navigation'
-// import { useRouter } from 'next/router';
+import { useRouter } from "next/navigation";
+import { notosans } from "@/font/font";
 import moment from "moment";
 const { Option } = Select;
 const layout = {
@@ -61,13 +70,12 @@ const newform = () => {
   };
   const [startDate, setStartDate] = useState(null);
 
-
   const disabledEndDate = (current) => {
     // Disable dates that are before the selected start date or are the selected start date
-    return current && (current <= startDate);
+    return current && current <= startDate;
   };
 
-  const handleAssigneChange = (value, name,) => {
+  const handleAssigneChange = (value, name) => {
     // const { name, value } = e.target;
     setProject({ ...project, [value]: name });
     // dispatch(setSelectedAssignee(value));
@@ -119,7 +127,7 @@ const newform = () => {
       .then((response) => {
         console.log(JSON.stringify(response.data));
         openNotification("topRight", "success", "UseCase saved successfully!");
-        router.push("/main/projects/developmentUsecases")
+        router.push("/main/projects/developmentUsecases");
       })
       .catch((error) => {
         console.log(error);
@@ -136,11 +144,13 @@ const newform = () => {
         console.log("responsedata ", responseData);
         console.log(JSON.stringify(responseData));
         const data = response.data;
-        console.log("REsourcesData", data)
+        console.log("REsourcesData", data);
         console.log(data.map((obj) => obj.ProductManagerId));
-        const mapResourses = (data.map((obj) => obj.ProductManagerId));
+        const mapResourses = data.map((obj) => obj.ProductManagerId);
 
-        const values = mapResourses.flatMap((ProductManagerId) => ProductManagerId);
+        const values = mapResourses.flatMap(
+          (ProductManagerId) => ProductManagerId
+        );
         console.log("Values:", values);
         setAssignees(values.filter((obj) => obj !== undefined));
         // setRoles(data.map((obj) => Object.keys(obj)));
@@ -153,162 +163,154 @@ const newform = () => {
   }, []);
   function disabledDate(current) {
     // Disable all dates before today
-    return current && current < moment().startOf('day');
+    return current && current < moment().startOf("day");
   }
 
   return (
-    <div className="">
-      <div className="flex w-[100%] flex-col items-start gap-5">
-        <div className=" bg-white px-2 py-2 w-[100%] ">
-          <Breadcrumb
-            className="bg-white p-2 mb-3"
-            items={[
-              {
-                title: <a href="/main"> Home</a>
-              },
-              {
-                title: <a href="/main/projects">Projects Overview</a>,
-              },
-              {
-                title: "Use Cases",
-              },
-            ]}
-          />
-          <h1 className="flex w-[100%] h-7 flex-col justify-center text-black  text-2xl non-italic font-semibold leading-snug">
-            {projectName}(Development workflow)
-          </h1>
-          <p>
-            Form pages are used to collect or verify information to users, and
-            basic forms are common in scenarios where there are fewer data
-            items.
-          </p>
-        </div>
-      </div>
-
-      <section className="flex flex-col items-center flex-shrink-0 mt-4 mx-auto  w-auto py-1 h-screen bg-white">
-        <h1 className="text-black text-2xl font-semibold leading-normal  px-4 py-4 w-[100%] flex items-center">
-          Basic Details
+    <div style={{ margin: "0px", padding: "0px", minHeight: 280 }}>
+      <div className="bg-white px-5 py-5 space-y-3 mb-6">
+        <Breadcrumb
+          items={[
+            {
+              title: <a href="/main"> Home</a>,
+            },
+            {
+              title: <a href="/main/projects">Projects Overview</a>,
+            },
+            {
+              title: "Use Cases",
+            },
+          ]}
+        />
+        <h1 className={`${notosans.className} capitalize text-2xl`}>
+          {projectName} (Development workflow)
         </h1>
-        <Form className="flex flex-col"
-          {...layout}
-          name="nest-messages"
-          style={{
-            maxWidth: 600,
-          }}
-        >
-          <Form.Item
-            name={["UsecaseName"]}
-            label="Usecase Name :"
-            rules={[
-              {
-                message: "Please input the project name!",
-              },
-            ]}
+        <p>
+          Form pages are used to collect or verify information to users, and
+          basic forms are common in scenarios where there are fewer data items.
+        </p>
+      </div>
+      <div className="px-5">
+        <section className="flex flex-col items-center flex-shrink-0 mt-4 mx-auto w-auto pb-5 pt-1 bg-white">
+          <h2 className="text-black text-2xl font-semibold leading-normal px-4 py-4 w-[100%] flex items-center">
+            Basic Details
+          </h2>
+          <Form
+            className="flex flex-col"
+            {...layout}
+            name="nest-messages"
+            style={{
+              maxWidth: 600,
+            }}
           >
-            <Input
-              value={project.usecase_name}
-              name={["usecase_name"]}
+            <Form.Item
+              name={["UsecaseName"]}
               label="Usecase Name :"
-              id="projectName"
-              onChange={handleChange}
-            />
-          </Form.Item>
+              rules={[
+                {
+                  message: "Please input the project name!",
+                },
+              ]}
+            >
+              <Input
+                value={project.usecase_name}
+                name={["usecase_name"]}
+                label="Usecase Name :"
+                id="projectName"
+                onChange={handleChange}
+              />
+            </Form.Item>
 
-          <Form.Item
-            name={["AssignTo"]}
-            label="Assign To :"
-            rules={[
-              {
-                message: "Please input the project description!",
-              },
-            ]}
-          >
-            <Select
-              placeholder="Select assignee"
-              loading={loading}
-              onChange={(value, name, resource_id) => {
-                handleAssigneChange("assigned_to_id", value, name);
-                console.log(resource_id)
+            <Form.Item
+              name={["AssignTo"]}
+              label="Assign To :"
+              rules={[
+                {
+                  message: "Please input the project description!",
+                },
+              ]}
+            >
+              <Select
+                placeholder="Select assignee"
+                loading={loading}
+                onChange={(value, name, resource_id) => {
+                  handleAssigneChange("assigned_to_id", value, name);
+                  console.log(resource_id);
+                }}
+              >
+                {assignees.map((assignee, index) => (
+                  // console.log("Assigne Data", assignee),
+                  <Option key={index} value={assignee.resource_id}>
+                    {assignee.name}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              name={["UsecaseDescription"]}
+              label="Usecase Description :"
+              rules={[
+                {
+                  message: "Please input the project department!",
+                },
+              ]}
+            >
+              <Input
+                name="description"
+                id="description"
+                value={project.description}
+                onChange={handleChange}
+              />
+            </Form.Item>
+
+            <Form.Item name="range-time-picker" label="Project Duration">
+              <div className="flex">
+                <DatePicker
+                  id="projectStartDate"
+                  placeholder="Start Date"
+                  className="text-slate-500 font-sans text-sm font-normal not-italic leading-6 pb-1 self-stretch items-center flex-1 border rounded-sm border-slate-200  px-1 py-1 h-8 w-[184px] m-1"
+                  onChange={handleStartDateChange}
+                  disabledDate={disabledDate}
+                  // value={project.startDate}
+                />
+                <span>-</span>
+                <DatePicker
+                  id="projectEndDate"
+                  placeholder="End Date"
+                  className="text-slate-500 font-sans text-sm font-normal not-italic leading-6 pb-1 self-stretch items-center flex-1 border rounded-sm border-slate-200shadow px-1 py-1 h-8 w-[184px] m-1"
+                  // onChange={(date, dateString) =>
+                  //   setProject({
+                  //     ...project,
+                  //     endDate: moment(dateString).format(
+                  //       "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+                  //     ),
+                  //   })
+                  // }
+                  // value={project.endDate}
+                  disabledDate={disabledDate}
+                  onChange={handleEndDateChange}
+                />
+              </div>
+            </Form.Item>
+
+            <Button
+              type="primary"
+              className="bg-blue-500 "
+              style={{
+                width: "100px",
+                marginLeft: "50%",
+              }}
+              onClick={() => {
+                handleSubmit();
               }}
             >
-              {assignees.map((assignee, index) => (
-                // console.log("Assigne Data", assignee),
-                <Option key={index} value={assignee.resource_id}>{assignee.name}</Option>
-              ))}
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            name={["UsecaseDescription"]}
-            label="Usecase Description :"
-            rules={[
-              {
-                message: "Please input the project department!",
-              },
-            ]}
-          >
-            <Input
-              name="description"
-              id="description"
-              value={project.description}
-              onChange={handleChange}
-            />
-          </Form.Item>
-
-          <Form.Item name="range-time-picker" label="Project Duration">
-            <div className="flex">
-              <DatePicker
-                id="projectStartDate"
-                placeholder="Start Date"
-                className="text-slate-500 font-sans text-sm font-normal not-italic leading-6 pb-1 self-stretch items-center flex-1 border rounded-sm border-slate-200  px-1 py-1 h-8 w-[184px] m-1"
-                onChange={handleStartDateChange}
-                disabledDate={disabledDate}
-              // value={project.startDate}
-              />
-              <span>-</span>
-              <DatePicker
-                id="projectEndDate"
-                placeholder="End Date"
-                className="text-slate-500 font-sans text-sm font-normal not-italic leading-6 pb-1 self-stretch items-center flex-1 border rounded-sm border-slate-200shadow px-1 py-1 h-8 w-[184px] m-1"
-                // onChange={(date, dateString) =>
-                //   setProject({
-                //     ...project,
-                //     endDate: moment(dateString).format(
-                //       "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
-                //     ),
-                //   })
-                // }
-                // value={project.endDate}
-                disabledDate={disabledDate}
-                onChange={handleEndDateChange}
-              />
-            </div>
-          </Form.Item>
-
-          {/* <Button
-            type="submit"
-            className="ml-[90%] m-10 px-2 py-1 justify-center items-center rounded-sm border border-blue-500 bg-blue-500 shadow-sm h-8 font-sans text-center text-white text-sm font-normal not-italic leading-3 flex-row-reverse"
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button> */}
-
-          <Button type="primary" className="bg-blue-500 "
-            style={{
-              width: '150px',
-              marginLeft: '50%'
-            }}
-            onClick={() => {
-              handleSubmit();
-            }}
-          >
-            Next
-          </Button>
-          {contextHolder}
-        </Form>
-      </section>
-
-      {/* //Workflow Head section */}
+              Save
+            </Button>
+            {contextHolder}
+          </Form>
+        </section>
+      </div>
     </div>
   );
 };

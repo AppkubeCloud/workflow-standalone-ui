@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row, Typography, Progress, Radio, Alert } from "antd";
+import { Card, Col, Row, Typography, Progress, Radio, Tooltip } from "antd";
 import { InProgress, Completed, Unassigned } from "@/Components/Badges";
 import api from "@/api";
 import { notosans } from "@/font/font";
@@ -63,11 +63,32 @@ const ProjectsList = () => {
   return (
     <>
       <div style={{ background: "#FFF", padding: "15px 15px" }}>
-        <Row gutter={16} style={{ marginLeft: "0", marginRight: "0" }}>
-          <div className="flex flex-row justify-between items-start w-full">
+        <Row
+          gutter={16}
+          style={{ marginLeft: "0", marginRight: "0", alignItems: "center" }}
+        >
+          <Col
+            className="gutter-row"
+            lg={{ span: 12 }}
+            md={{ span: 24 }}
+            sm={{ span: 24 }}
+            xs={{ span: 24 }}
+          >
             <Title level={2} className={`${notosans.className} mb-0 text-2xl`}>
               Project Lists
             </Title>
+          </Col>
+          <Col
+            className="gutter-row"
+            lg={{ span: 12 }}
+            md={{ span: 24 }}
+            sm={{ span: 24 }}
+            xs={{ span: 24 }}
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
             <Radio.Group
               value={size}
               onChange={(e) => setSize(e.target.value)}
@@ -83,7 +104,7 @@ const ProjectsList = () => {
                 Completed
               </Radio.Button>
             </Radio.Group>
-          </div>
+          </Col>
         </Row>
         <Row
           gutter={[16, 24]}
@@ -91,20 +112,35 @@ const ProjectsList = () => {
           style={{ marginLeft: "0", marginRight: "0" }}
         >
           {filteredData().map((item, index) => (
-            <Col className="gutter-row" span={6}>
+            <Col
+              className="gutter-row"
+              lg={{ span: 6 }}
+              md={{ span: 8 }}
+              sm={{ span: 12 }}
+              xs={{ span: 24 }}
+            >
               <Card
                 bordered={false}
                 style={{
                   boxShadow: "0px 1px 4px 0px #00000029",
                   borderRadius: "5px",
-                  height: "100%",
-                  marginBottom: "20px",
+                  marginBottom: "0px",
                 }}
                 bodyStyle={{ padding: "15px" }}
               >
-                <Title level={4} className={`${notosans.className} capitalize`}>
-                  {item.project_name}
-                </Title>
+                <Tooltip title={item.project_name} placement="bottomLeft">
+                  <Title
+                    level={4}
+                    className={`${notosans.className} capitalize no-wrap`}
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {item.project_name}
+                  </Title>
+                </Tooltip>
                 {checkStatus(item.status)}
                 <Title level={5} className={`${notosans.className} mt-3`}>
                   Total Usecase {item.total_usecases}
@@ -116,7 +152,7 @@ const ProjectsList = () => {
                   <Progress
                     type="circle"
                     percent={item.completed_tasks_percentage}
-                    strokeWidth={22}
+                    strokeWidth={15}
                     strokeLinecap="square"
                     strokeColor="#F8D236"
                     trailColor="#F6EEFF"

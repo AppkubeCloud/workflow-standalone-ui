@@ -9,9 +9,9 @@ import {
   SaveOutlined,
   CloseCircleFilled,
 } from "@ant-design/icons";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import api from "@/api/index"
+import api from "@/api/index";
 
 const CreatingTemplate = () => {
   const [workFlowName, setWorkFlowName] = useState("");
@@ -33,13 +33,13 @@ const CreatingTemplate = () => {
   const postWorkflow = async () => {
     const axios = require("axios");
     let data = JSON.stringify({
-      "name": `${workFlowName}`,
-      "created_by_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      "project_id": `${ProjectId}`,
-      "stages": stages.map((stage) => ({
-        "name": stage.stageName,
-        "tasks": stage.subStages,
-        "checklist": stage.checklist,
+      name: `${workFlowName}`,
+      created_by_id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      project_id: `${ProjectId}`,
+      stages: stages.map((stage) => ({
+        name: stage.stageName,
+        tasks: stage.subStages,
+        checklist: stage.checklist,
       })),
     });
     console.log(data);
@@ -63,10 +63,10 @@ const CreatingTemplate = () => {
         router.push("/main/projects/workflowlist");
       })
       .catch((error) => {
-        const seterror = { error }
-        console.log(seterror)
-        const errorStatus = error.response.data.message
-        console.log(errorStatus)
+        const seterror = { error };
+        console.log(seterror);
+        const errorStatus = error.response.data.message;
+        console.log(errorStatus);
         openNotification("topRight", "error", ` ${errorStatus}`);
         console.log(error);
       });
@@ -81,7 +81,6 @@ const CreatingTemplate = () => {
         checklist: [],
       },
     ]);
-
   };
 
   const handleStageNameChange = (index, value) => {
@@ -103,7 +102,7 @@ const CreatingTemplate = () => {
   };
 
   return (
-    <div className="border rounded border-t-[2rem] border-[#F5F5F5]">
+    <div className="rounded">
       <div className="flex justify-between p-4 items-center bg-white">
         <Input
           placeholder="WorkFlow Usecases"
@@ -121,21 +120,22 @@ const CreatingTemplate = () => {
       </div>
 
       {stages.map((stage, index) => (
-        <div key={index} className="py-2 px-4 mt-2 flex flex-col space-y-2">
+        <div key={index} className="py-2 px-0 mt-2 flex flex-col space-y-2">
           <h3 className="text-base font-medium leading-normal tracking-normal text-left">
             Add Stage
           </h3>
-          <div className="bg-white p-4 flex items-center justify-between">
-            <h4 className="text-sm font-normal leading-snug tracking-normal">
+          <div className="bg-white p-4 flex items-center justify-start">
+            <h4 className="text-sm font-normal leading-snug tracking-normal w-[150px]">
               Stage Name :
             </h4>
             <Input
               placeholder="Requirement"
-              className="w-1/2"
+              className="w-1/3 rounded-sm"
               value={stage.stageName}
               onChange={(e) => handleStageNameChange(index, e.target.value)}
             />
             <DeleteFilled
+              className="ml-5"
               style={{ color: "red" }}
               onClick={() => {
                 const updatedStages = stages.filter((_, i) => i !== index);
@@ -145,7 +145,7 @@ const CreatingTemplate = () => {
 
             <Button
               type="primary"
-              className="bg-blue-500"
+              className="bg-blue-500 ml-auto rounded-sm"
               onClick={() => {
                 handleAddChecklist(index);
               }}
@@ -154,27 +154,32 @@ const CreatingTemplate = () => {
             </Button>
             <Button
               type="primary"
-              className="bg-blue-500"
+              className="bg-blue-500 ml-3 rounded-sm"
               onClick={() => handleAddSubstage(index)}
             >
               Add Sub Stages
             </Button>
-
           </div>
-
           <div>
             {/* Render Substages */}
+            {stage.subStages.length > 0 ? (
+              <h3 className="text-base font-medium leading-normal tracking-normal text-left ml-10 mt-4 mb-3">
+                Add Sub Stage
+              </h3>
+            ) : (
+              ""
+            )}
             {stage.subStages.map((subStage, subIndex) => (
               <div
                 key={subIndex}
-                className="bg-white p-4 flex items-center justify-between my-1 ml-10"
+                className="bg-white p-4 flex items-center justify-start ml-10"
               >
-                <h4 className="text-sm font-normal leading-snug tracking-normal">
+                <h4 className="text-sm font-normal leading-snug tracking-normal w-[150px]">
                   Sub Stage Name :
                 </h4>
                 <Input
                   placeholder="Substage"
-                  className="w-1/2"
+                  className="w-1/3 rounded-sm"
                   value={subStage}
                   onChange={(e) => {
                     // if(subStage.length === 0){
@@ -183,47 +188,62 @@ const CreatingTemplate = () => {
                     const updatedStages = [...stages];
 
                     // Check if the new value is unique within the same stage
-                    const isUnique = !updatedStages[index].subStages.includes(newSubStageValue);
+                    const isUnique =
+                      !updatedStages[index].subStages.includes(
+                        newSubStageValue
+                      );
 
                     if (isUnique) {
-                      updatedStages[index].subStages[subIndex] = newSubStageValue;
+                      updatedStages[index].subStages[subIndex] =
+                        newSubStageValue;
                       setStages(updatedStages);
                     } else {
                       setStages(updatedStages);
-                      updatedStages[index].subStages[subIndex] = newSubStageValue;
-                      console.error("Substage value must be unique within the same stage.");
-                      openNotification("topRight", "error", "Sub Stages value should be different")
+                      updatedStages[index].subStages[subIndex] =
+                        newSubStageValue;
+                      console.error(
+                        "Substage value must be unique within the same stage."
+                      );
+                      openNotification(
+                        "topRight",
+                        "error",
+                        "Sub Stages value should be different"
+                      );
                     }
                   }}
                 />
-                <Button
-                  type="primary"
-                  danger
+                <DeleteFilled
+                  className="ml-5"
+                  style={{ color: "red" }}
                   onClick={() => {
                     const updatedStages = [...stages];
-                    updatedStages[index].subStages.splice(subIndex, 1); // Remove the sub-stage at subIndex
+                    updatedStages[index].subStages.splice(subIndex, 1);
                     setStages(updatedStages);
                   }}
-                >
-                  Remove
-                </Button>
+                />
               </div>
             ))}
           </div>
-
           <div>
             {/* Render Checklists */}
+            {stage.checklist.length > 0 ? (
+              <h3 className="text-base font-medium leading-normal tracking-normal text-left ml-10 mt-4 mb-3">
+                Create check list
+              </h3>
+            ) : (
+              ""
+            )}
             {stage.checklist.map((checklist, checklistIndex) => (
               <div
                 key={checklistIndex}
-                className="bg-white p-4 flex items-center justify-between my-1 ml-10"
+                className="bg-white p-4 flex items-center justify-start ml-10"
               >
-                <h4 className="text-sm font-normal leading-snug tracking-normal">
-                  Checklist :
+                <h4 className="text-sm font-normal leading-snug tracking-normal w-[150px]">
+                  Check List :
                 </h4>
                 <Input
                   placeholder="Checklist Item"
-                  className="w-1/2"
+                  className="w-1/3 rounded-sm"
                   value={checklist}
                   // onChange={(e) => {
                   //   const updatedStages = [...stages];
@@ -233,40 +253,52 @@ const CreatingTemplate = () => {
                   // }}
                   onChange={(e) => {
                     const newChecklistValue = e.target.value;
-                    const updatedChecklist = [...stages]
-                    const isUniqueValue = !updatedChecklist[index].checklist.includes(newChecklistValue)
+                    const updatedChecklist = [...stages];
+                    const isUniqueValue =
+                      !updatedChecklist[index].checklist.includes(
+                        newChecklistValue
+                      );
 
                     if (isUniqueValue) {
-                      updatedChecklist[index].checklist[checklistIndex] = newChecklistValue;
+                      updatedChecklist[index].checklist[checklistIndex] =
+                        newChecklistValue;
                       setStages(updatedChecklist);
                     } else {
                       setStages(updatedChecklist);
-                      updatedChecklist[index].checklist[checklistIndex] = newChecklistValue;
-                      console.error("Checklist value must be unique within the same stage.");
-                      openNotification("topRight", "error", "Checklist value should be different")
+                      updatedChecklist[index].checklist[checklistIndex] =
+                        newChecklistValue;
+                      console.error(
+                        "Checklist value must be unique within the same stage."
+                      );
+                      openNotification(
+                        "topRight",
+                        "error",
+                        "Checklist value should be different"
+                      );
                     }
                   }}
                 />
-                <Button
-                  type="primary"
-                  danger
+
+                <DeleteFilled
+                  className="ml-5"
+                  style={{ color: "red" }}
                   onClick={() => {
                     const updatedStages = [...stages];
-                    updatedStages[index].checklist.splice(checklistIndex, 1); // Remove the checklist item at checklistIndex
+                    updatedStages[index].checklist.splice(checklistIndex, 1);
                     setStages(updatedStages);
                   }}
-                >
-                  Remove
-                </Button>
+                />
               </div>
             ))}
           </div>
         </div>
       ))}
-
       <div className="flex justify-center mt-6 mb-5 w-[100%]">
-        {/* <Link href="/main/projects/workflowlist"> */}
-        <Button type='primary' className="bg-blue-500 text-white" onClick={postWorkflow} >
+        <Button
+          type="primary"
+          className="bg-blue-500 text-white rounded-sm"
+          onClick={postWorkflow}
+        >
           Save
         </Button>
         {contextHolder}

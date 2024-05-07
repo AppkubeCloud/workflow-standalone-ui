@@ -2,17 +2,15 @@
 import React, { useState } from "react";
 import { roboto } from "@/font/font";
 import {
-  AccountBookFilled,
+  CarryOutFilled,
   BellFilled,
+  HomeFilled,
+  AccountBookFilled,
+  TeamOutlined,
   ProjectFilled,
-  IdcardFilled,
-  SignalFilled,
-  SearchOutlined,
-  VideoCameraOutlined,
   RightOutlined,
   LeftOutlined,
 } from "@ant-design/icons";
-import { useRouter } from "next/navigation";
 import { Layout, Menu, Button } from "antd";
 import Navbar from "@/Components/Navbar/Navbar";
 import NavLink from "../nav-link";
@@ -22,10 +20,6 @@ const { Sider, Content } = Layout;
 const MainLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
 
-  const toggleSider = () => {
-    setCollapsed(!collapsed);
-  };
-  const router = useRouter();
   return (
     <>
       <Layout theme="dark" style={{ minHeight: "100vh" }}>
@@ -35,41 +29,57 @@ const MainLayout = ({ children }) => {
           collapsed={collapsed}
           theme="light"
           className="fixed "
-          style={{ position: "fixed", height: "100vh", top: '64px' }}
+          style={{ position: "fixed", height: "100vh", top: "64px" }}
         >
-          
           {/* ... your existing Sider content */}
           <Menu
             className={`${roboto.className} relative`}
             theme="light"
             mode="inline"
             defaultSelectedKeys={["1"]}
-            // selectedKeys={[router.pathname]}
             items={[
               {
                 key: "1",
-                icon: <ProjectFilled />,
+                icon: <HomeFilled />,
                 label: <NavLink href="/main">Dashboard</NavLink>,
               },
               {
                 key: "2",
-                icon: <VideoCameraOutlined />,
+                icon: <ProjectFilled />,
                 label: <NavLink href="/main/projects">Projects</NavLink>,
               },
               {
                 key: "3",
-                icon: <SignalFilled />,
+                icon: <TeamOutlined />,
                 label: "Team",
               },
               {
                 key: "4",
-                icon: <IdcardFilled />,
+                icon: <AccountBookFilled />,
                 label: "Reports",
               },
               {
                 key: "5",
-                icon: <AccountBookFilled />,
+                icon: <CarryOutFilled />,
                 label: "Preference",
+                children: [
+                  {
+                    key: "Account1",
+                    label: "Account Setting",
+                  },
+                  {
+                    key: "Account2",
+                    label: "Project Setting",
+                  },
+                  {
+                    key: "Account3",
+                    label: "General Setting",
+                  },
+                  {
+                    key: "Account4",
+                    label: "Export/Import",
+                  },
+                ],
               },
               {
                 key: "6",
@@ -93,7 +103,9 @@ const MainLayout = ({ children }) => {
           />
         </Sider>
         <Layout
-          className={`${collapsed ? 'site-layout left-collapsed' : 'site-layout'}`}
+          className={`${
+            collapsed ? "site-layout left-collapsed" : "site-layout"
+          }`}
           style={{ marginLeft: collapsed ? 80 : 200 }}
         >
           <Navbar />
