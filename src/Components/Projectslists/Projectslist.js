@@ -111,7 +111,7 @@ const ProjectsList = () => {
           className="mt-4"
           style={{ marginLeft: "0", marginRight: "0" }}
         >
-          {filteredData().map((item, index) => (
+          {filteredData()?.map((item, index) => (
             <Col
               className="gutter-row"
               lg={{ span: 6 }}

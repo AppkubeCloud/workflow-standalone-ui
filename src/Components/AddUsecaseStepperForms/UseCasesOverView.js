@@ -15,9 +15,7 @@ import user from "../../../public/assets/user.png";
 const UseCasesOverView = () => {
   const [size, setSize] = useState("small");
 
-  const onChange = (e) => {
-    setSize(e.target.value);
-  };
+
 
   const [requireData, setRequireData] = useState();
   const setUsecaseId = useSelector((state) => state.addUsecase);
@@ -55,17 +53,18 @@ const UseCasesOverView = () => {
       : [];
   return (
     <div className="mb-4 flex w-100%">
-      <div className="w-10% h-screen mr-2">
+      <div className="w-[20%] h-screen mr-2 bg-white">
+        <h3 className="my-3 text-lg font-medium leading-7 tracking-normal text-center">Use Case Status</h3>
         <Steps
           direction="vertical"
-          className=" w-[200px] h-[100%] gap-4 p-2 justify-center bg-white"
+          className=" w-[200px] h-[100%] gap-4 p-2 justify-center "
         >
           {mappedSteps.map((step, index) => (
             <Steps.Step key={index} title={step.title} status="wait" />
           ))}
         </Steps>
       </div>
-      <div className="w-[90%] h-screen ml-2">
+      <div className="w-[80%] h-screen ml-2">
         {requireData && (
           <div className="flex space-x-5 items-center bg-white p-4 mb-3">
             <div>
@@ -101,7 +100,7 @@ const UseCasesOverView = () => {
                     Assigned date
                   </p>
                   <h3 class="text-base font-normal leading-tight tracking-normal text-left">
-                    {requireData.usecase.creation_date}
+                    {new Date(parseInt(requireData.usecase.creation_date.substr(6))).toDateString()}
                   </h3>
                 </div>
                 <div class="flex space-x-3">
@@ -150,7 +149,7 @@ const UseCasesOverView = () => {
                   key: id,
                   children: (
                     <div className="flex flex-col pl-3">
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -160,14 +159,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Yahiyaalikhan
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           Created the task about 2 hours ago
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -177,14 +176,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Yahiyaalikhan
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           assign task to Ghouse about 6 hours ago
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -194,14 +193,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Ghouse
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           Filled the task about 6 hours ago
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -211,14 +210,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Ghouse
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           Started the task about 8 hours ago.
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -228,18 +227,18 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Ghouse
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           completed the task about 12 hours ago
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3">
                         <MessageOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
-                            color: "rgba(24, 144, 255, 1)",
+                            color: "#00000073",
                             padding: "5px",
                             fontSize: "1rem",
                           }}
@@ -254,7 +253,7 @@ const UseCasesOverView = () => {
                           </p>
                         </div>
                       </div>
-                      <div className="ml-10 mx-10">
+                      <div className="ml-10 mx-10 w-[50%]">
                         <textarea
                           value={
                             "A design system for enterprise-level products. Create an efficient and enjoyable work experience."
@@ -270,8 +269,8 @@ const UseCasesOverView = () => {
                   label: `Detailed log`,
                   key: id,
                   children: (
-                    <div className="flex flex-col  ml-5">
-                      <div className="flex items-center space-x-3 my-3">
+                    <div className="flex flex-col pl-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -281,14 +280,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Yahiyaalikhan
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           Created the task about 2 hours ago
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -298,14 +297,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Yahiyaalikhan
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           assign task to Ghouse about 6 hours ago
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -315,14 +314,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Ghouse
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           Filled the task about 6 hours ago
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -332,14 +331,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Ghouse
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           Started the task about 8 hours ago.
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -349,14 +348,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Ghouse
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           completed the task about 12 hours ago
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -366,14 +365,14 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Yahiyaalikhan
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
                           Reviewed the task 24 hours ago
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3 work-overview-items">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -383,7 +382,7 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Yahiyaalikhan
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
@@ -394,7 +393,7 @@ const UseCasesOverView = () => {
                           On February 21st 2024 at 3:00PM
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3 my-3">
+                      <div className="flex items-center space-x-3 py-3">
                         <RiseOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
@@ -404,7 +403,7 @@ const UseCasesOverView = () => {
                           }}
                           className="rounded-lg"
                         />
-                        <h3 className="text-base font-normal leading-normal tracking-normal text-left">
+                        <h3 className="text-base font-semibold leading-normal tracking-normal text-left">
                           Akbarkhan
                         </h3>
                         <p className="text-sm font-normal leading-snug tracking-normal text-left">
@@ -419,19 +418,19 @@ const UseCasesOverView = () => {
                   label: `Comment`,
                   key: id,
                   children: (
-                    <div className="flex flex-col m-3">
+                    <div className="flex flex-col ml-3">
                       <div className="flex items-center space-x-3 my-3">
                         <MessageOutlined
                           style={{
                             background: "rgba(240, 240, 240, 1)",
-                            color: "rgba(24, 144, 255, 1)",
+                            color: "#00000073",
                             padding: "5px",
                             fontSize: "1rem",
                           }}
                           className="rounded-lg"
                         />
                         <div>
-                          <h3 className="text-xs font-normal leading-snug tracking-normal text-left">
+                          <h3 className="text-xs font-semibold leading-snug tracking-normal text-left">
                             Ghouse
                           </h3>
                           <p className="text-xs font-normal leading-snug tracking-normal text-left">

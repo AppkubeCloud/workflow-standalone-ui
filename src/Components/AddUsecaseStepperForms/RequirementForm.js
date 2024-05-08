@@ -4,65 +4,32 @@ import {
   Form,
   Input,
   Modal,
-  Tabs,
   Upload,
   notification,
-  Dropdown,
-  Space,
   Button,
-  Menu,
-  Typography,
   Skeleton,
 } from "antd";
 import {
   BugOutlined,
   CaretDownOutlined,
-  DownOutlined,
   FileProtectOutlined,
   LinkOutlined,
   SearchOutlined,
-  UploadOutlined,
 } from "@ant-design/icons";
-import {
-  BarsOutlined,
-  ShoppingOutlined,
-  RiseOutlined,
-  MessageOutlined,
-} from "@ant-design/icons";
+import { MessageOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { data } from "autoprefixer";
 import Image from "next/image";
-import userImg from "../../../public/assets/user.png";
-// import { axios } from 'axios';
 
 //Doc upload//
-import { Progress } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import axios from "axios";
-import Link from "next/link";
-import Item from "antd/es/list/Item";
-// import user from "../../../public/assets/icons8-user.gif"
-import user from "../../../public/assets/icons8-user-48.png";
-import getAccessTokenFromCookie from "@/utils/getAccessToken";
 import AssignBtnImg from "../../../public/assets/AssignImg.png";
 const { Dragger } = Upload;
 //Doc upload//
 
 const RequirementForm = (stepperState) => {
-  const [size, setSize] = useState("small");
   console.log("propsValue", stepperState);
 
-  const onChange = (e) => {
-    setSize(e.target.value);
-  };
-  const arrayOfObjects = [
-    { id: 1, name: "John" },
-    { id: 2, name: "Jane" },
-    { id: 3, name: "Doe" },
-  ];
-
-  const [requireData, setRequireData] = useState();
-  const [formatedDate, setformatedDate] = useState();
   const [requiretasks, setrequireTasks] = useState([]);
   const [requireChecklist, setrequireChecklist] = useState();
   const setUsecaseId = useSelector((state) => state.addUsecase);
@@ -75,6 +42,7 @@ const RequirementForm = (stepperState) => {
   const setprojectIds = useSelector((state) => state.addResources);
   const projectId = setprojectIds.id[0].prjectId;
   console.log(UsecaseId);
+
   useEffect(() => {
     const axios = require("axios");
 
@@ -95,13 +63,9 @@ const RequirementForm = (stepperState) => {
         console.log(response.data);
 
         console.log(JSON.stringify(response.data.stages));
-        // setRequireData(response.data);
         const stages = response.data.stages;
         console.log(stages);
         const propsValue = Object.values(stepperState)[0];
-        // const creationDate = new Date(requireData.usecase.creation_date);
-        // const formattedDate = creationDate.toISOString().slice(0, 10); // YYYY-MM-DD format
-        // setformatedDate(formattedDate);
         const stage = stages.filter(
           (obj) => Object.values(stepperState)[0] in obj
         );
@@ -111,19 +75,8 @@ const RequirementForm = (stepperState) => {
         console.log("tasks", JSON.stringify(tasks));
         console.log(Docs);
         const checkList = stage[0][propsValue].checklist;
-        // console.log("tassks", tasks);
-        // console.log("checklist", checkList);
         setrequireTasks(tasks);
-        // window.addEventListener("load", () => {
-        //   const storedCurrentTask = localStorage.getItem("currentTask");
-        //   if (storedCurrentTask) {
-        //     const parsedCurrentTask = JSON.parse(storedCurrentTask);
-        //     setrequireTasks(parsedCurrentTask);
-        //   }
-        // });
-
         setrequireChecklist(checkList);
-        // console.log(tasks);
 
         setLoading(false);
       })
@@ -156,51 +109,6 @@ const RequirementForm = (stepperState) => {
   console.log(requiretasks);
   console.log(JSON.stringify(requiretasks));
 
-  const InsideDropDown = ({ name }) => {
-    const [visible, setVisible] = useState(false);
-
-    const items = [
-      { key: "1", label: "Item 1" },
-      { key: "2", label: "Item 2" },
-      { key: "3", label: "Item 3" },
-    ];
-
-    const handleVisibleChange = (flag) => {
-      setVisible(flag);
-    };
-
-    const handleButtonClick = () => {
-      // Handle button click action here
-    };
-
-    return (
-      <Dropdown
-        visible={visible}
-        onVisibleChange={handleVisibleChange}
-        overlay={
-          <Space direction="vertical">
-            {items.map((item) => (
-              <Button key={item.key} type="text">
-                {item.label}
-              </Button>
-            ))}
-          </Space>
-        }
-      >
-        <Typography.Link onClick={(e) => e.preventDefault()}>
-          <Space>
-            {name}
-            <DownOutlined />
-          </Space>
-        </Typography.Link>
-        {visible && (
-          <Button type="primary" onClick={handleButtonClick}>
-            Action
-          </Button>
-        )}
-      </Dropdown>
-    );
-  };
   let items = [];
   if (Roles) {
     items = Roles.map((data, index) => ({
@@ -213,11 +121,10 @@ const RequirementForm = (stepperState) => {
   const [image, setimage] = useState([]);
   const [fileuploaded, setfileuploaded] = useState(false);
   const [convertedImages, setConvertedImages] = useState([]);
-  const [convertedImagesString, setconvertedImagesString] = useState("");
   const [convertedLinkString, setconvertedLinkString] = useState("");
   const [Attachments, setAttachments] = useState([]);
   const [uploadingFiles, setUploadingFiles] = useState([]);
-  const [uploadingBase64, setuploadingBase64] = useState([])
+  const [uploadingBase64, setuploadingBase64] = useState([]);
 
   console.log(Attachments);
   const handleFileChange = (info) => {
@@ -243,13 +150,16 @@ const RequirementForm = (stepperState) => {
       }
     }
     setConvertedImages(newConvertedImages);
-    setuploadingBase64(newConvertedImages[0].data)
-    console.log("NEWcONVERiMAGE",newConvertedImages,newConvertedImages[0].data)
+    setuploadingBase64(newConvertedImages[0].data);
+    console.log(
+      "NEWcONVERiMAGE",
+      newConvertedImages,
+      newConvertedImages[0].data
+    );
   };
   // const accessToken = getAccessTokenFromCookie();
   const accessToken =
     "eyJraWQiOiJ0WExXYzd1ZGhyaVwvVEhLYldwK3F2bEw4SGtJTXQwZVBhUmlzQXhCd0lwRT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIwNDA4NjQ2OC1kMDUxLTcwMmQtOTY2Mi1hNWRmNTQ5ZjRlMzQiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfSlA1QjRXWGJIIiwiY3VzdG9tOnVzZXJfaWQiOiIyNGUyOTU0Yi05MzQzLTQ3MWQtODI2Yi0wMDAzYTBlNzZiYjEiLCJjdXN0b206b3JnX2lkIjoiNWM3NWE0MDQtMTJhOC00Yzc5LTkwZDgtNmIzMzgyNTE1NDlkIiwiY29nbml0bzp1c2VybmFtZSI6IjA0MDg2NDY4LWQwNTEtNzAyZC05NjYyLWE1ZGY1NDlmNGUzNCIsIm9yaWdpbl9qdGkiOiJjZmZlMzI3MC00ZWM3LTQwYzYtYjQzMC02NTk3OTA0MzNjODUiLCJhdWQiOiI3OXFhMDR1bXY1bzFoc2tvajVmcXRkMnM4cCIsImV2ZW50X2lkIjoiNzYyYjk3M2MtOGZkYS00MWQxLWIyNGQtMGY4N2JhMzk5Y2E1IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE3MTI1Njg3MTgsImV4cCI6MTcxMjY1NTExOCwiY3VzdG9tOnJvbGUiOiJhZG1pbiIsImlhdCI6MTcxMjU2ODcxOCwianRpIjoiYmU0Mzg0NzItNjQ1Yi00ZTdkLWI2YTItNGQyODdlOGYzMzBmIiwiZW1haWwiOiJqZWRlZmVsMTU1QGNlbnRlcmYuY29tIn0.C_IgEAsz3Irzi3UjTHDrNZjb9kgB3k4N-72OP-9KjYJv8yxqZX3i7m26vtaK4pPaJvGQTwcBe-1LcZUo0oilzWzWmrx47LPdYM2WtBaL4nxt1KKToFPDNXJsGTeZHA14l0LarPuxY7Yg-t4dl-ZT9J6hSs3rnawVIgmX9Lq9x-lw6-V4zxF6D31cotvKLHoAq2-SdDgZChPbwtJ9MDeV2S2cyut4tLBu0JxrjfWWTV2Aq4g9FOnFLbzBIy9YuS5W-Xjww1gfmyG0CEs5g90nO7AnCMOvLWpG5cpm8Sg6c3ZFkctXpCYcJjXXf37mEpwAeZwEVwoFCKWjk9k3hYdcGg";
-
 
   useEffect(() => {
     if (fileuploaded && convertedImages.length > 0) {
@@ -280,7 +190,6 @@ const RequirementForm = (stepperState) => {
       </p>
     </Dragger>
   );
-  console.log(convertedImagesString);
 
   /////////--------------  Doc upload ends
 
@@ -288,7 +197,6 @@ const RequirementForm = (stepperState) => {
 
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
-  const [linkUpload, setlinkUpload] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -364,11 +272,7 @@ const RequirementForm = (stepperState) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onloadend = () => {
-        //   if (reader.result) {
         resolve(reader.result);
-        //   } else {
-        //     reject(new Error('Error reading Blob'));
-        //   }
       };
       reader.onerror = reject;
       reader.readAsDataURL(blob);
@@ -388,57 +292,9 @@ const RequirementForm = (stepperState) => {
   };
   //------------Docs Post
   const UploadingDoc = () => {
-    // const currentTask = requiretasks.at(AssignIndex);
-    // const updatedDocs = [...currentTask.docs];
-    // // console.log("Docs", currentTask)
-    // // (currentTask.docs[0] = {
-    // //   doc_name: DocumentAssign.doc_name,
-    // //   doc_url: convertedImagesString,
-    // // }),
-    // //   console.log("Docs", currentTask);
-
-    //   updatedDocs.push({
-    //     doc_name: DocumentAssign.doc_name,
-    //     doc_url: convertedImagesString,
-    //   });
-
-    //   // Create a new object for currentTask to ensure immutability
-    //   const updatedTask = {
-    //     ...currentTask,
-    //     docs: updatedDocs,
-    //   };
-
-    //   // Create a new array with updatedTask at AssignIndex
-    //   const updatedTasks = [...requiretasks];
-    //   updatedTasks[AssignIndex] = updatedTask;
-
-    //   // Update the state with the new array
-    //   setrequireTasks(updatedTasks);
     HandleUploadingDoc(), handleCancel();
   };
   const UploadingLink = () => {
-    // const currentTask = requiretasks.at(AssignIndex);
-    // const updatedDocs = [...currentTask.docs];
-
-    // // console.log("Docs", currentTask)
-    // updatedDocs.push({
-    //   doc_name: name,
-    //   doc_url: convertedLinkString,
-    //   type: "url"
-    // }),
-    //   console.log("Docs", currentTask);
-    // // handleAssignButtonClick(AssignResourseId);
-    // const updatedTask = {
-    //   ...currentTask,
-    //   docs: updatedDocs,
-    // };
-
-    // // Create a new array with updatedTask at AssignIndex
-    // const updatedTasks = [...requiretasks];
-    // updatedTasks[AssignIndex] = updatedTask;
-
-    // // Update the state with the new array
-    // setrequireTasks(updatedTasks);
     HandleUploadingLink(), handleCancel();
   };
 
@@ -530,7 +386,7 @@ const RequirementForm = (stepperState) => {
           updatedDocs.push({
             doc_name: name,
             doc_url: response.data.doc_url,
-            
+
             type: "url",
           }),
             console.log("Docs", currentTask);
@@ -552,11 +408,9 @@ const RequirementForm = (stepperState) => {
         console.log(error);
       });
   };
-  // const axios = require('axios');
 
   ///------------Docs Post
 
-  const [isOpen, setIsOpen] = useState(false);
   const [openItemIndex, setOpenItemIndex] = useState(null);
   const [openActionIndex, setopenActionIndex] = useState(null);
   const [openImageIndex, setopenImageIndex] = useState([]);
@@ -567,7 +421,6 @@ const RequirementForm = (stepperState) => {
   );
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [selectedSubItem, setSelectedSubItem] = useState(null);
-  const [selectedAssignee, setSelectedAssignee] = useState();
   const [selectedAssign, setSelectedAssign] = useState();
   const [selectedAssignName, setSelectedAssignName] = useState();
   const [AssignName, setAssignName] = useState();
@@ -576,10 +429,6 @@ const RequirementForm = (stepperState) => {
   const [AssignImg, setAssignImg] = useState();
   const [AssignResourseId, setAssignResurseId] = useState();
   const [TaskId, setTaskId] = useState();
-  const [AssigneeImg, setAssigneeImg] = useState(null);
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for main dropdown
-
-  // console.log(AssignName, AssignIndex);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -658,18 +507,13 @@ const RequirementForm = (stepperState) => {
     setShowUploadModal(false);
     setIsModalOpen(false);
   };
-  const toggleDropDown = (index) => {
-    setIsOpen(!isOpen);
-  };
 
   const toggleSubItems = (index) => {
     setOpenItemIndex(openItemIndex === index ? null : index);
-    // setIsDropdownOpen(!isDropdownOpen);
   };
   const handleSubItemClick = (subItem) => {
     setSelectedSubItem(subItem);
   };
-  console.log("selectedResource", selectedAssignee);
 
   const handleTaskId = (taskId) => {
     setTaskId(taskId);
@@ -718,13 +562,10 @@ const RequirementForm = (stepperState) => {
         console.log(error);
       });
   };
-  // const actionButtons = document.querySelectorAll('.action-button');
-  // console.log("requiredData:", requireData.usecase.stages  )
   return (
     <div>
       {loading ? (
         <p>
-          {" "}
           <Skeleton
             active
             paragraph={{
@@ -738,18 +579,18 @@ const RequirementForm = (stepperState) => {
             (data, index) => (
               console.log("taskData", data),
               (
-                <div className="mb-8 " style={{ zIndex: "0" }} key={index}>
+                <div className="mb-5 " style={{ zIndex: "0" }} key={index}>
                   <div
-                    className="flex items-center justify-between py-3 px-2"
+                    className="flex items-center justify-between py-3 px-3"
                     style={{ background: "rgba(230, 247, 255, 1)" }}
                   >
-                    <h1 className="text-base font-bold leading-tight tracking-normal text-left">
+                    <h2 className="text-base font-semibold leading-tight tracking-normal text-left">
                       {data.name}
-                    </h1>
+                    </h2>
                   </div>
                   <div
-                    className="flex items-start justify-between mt-2 px-4 "
-                    style={{ minHeight: "9.5rem", maxHeight: "auto" }}
+                    className="flex items-start justify-between p-5 bg-gray-100"
+                    style={{ minHeight: "5.5rem", maxHeight: "auto" }}
                     key={index}
                   >
                     <div className="Main-Wrap">
@@ -910,29 +751,6 @@ const RequirementForm = (stepperState) => {
                           ) : (
                             <div className="flex gap-2 w-[2]" id="AssigneeImg">
                               <h5>{data.assigned_to.name}</h5>
-                              {/* <Image
-                            src={data.assigned_to.image}
-                            alt={data.assigned_to.name}
-                            height={34}
-                            width={34}
-                          ></Image> */}
-                              {/* {data.docs &&
-                            data.docs.length > 0 &&
-                            data.docs.map((doc, index) => (
-                              <div key={index} className="bg-white border relative right-0 text-black p-4 rounded-md flex flex-col items-center items-center gap-1 ">
-                                <Image
-                                  src={doc.doc_url}
-                                  alt={doc.doc_name}
-                                  height={34}
-                                  width={30}
-                                />
-                                <a href={doc.doc_url} target="_blank">
-                                  {doc.doc_name}
-                                </a>
-                              </div>
-                            ))} */}
-
-                              {/* {AssignDocs === data.id && ( */}
                             </div>
                           )}
                         </div>
@@ -955,7 +773,7 @@ const RequirementForm = (stepperState) => {
                                   key={index}
                                   className="bg-white border relative right-0 text-black p-4 rounded-md flex  flex-col items-center gap-1 "
                                 >
-                                  {(doc.type === "html" && (
+                                  {doc.type === "html" && (
                                     <>
                                       <Image
                                         src={doc.doc_url}
@@ -965,8 +783,8 @@ const RequirementForm = (stepperState) => {
                                       />
                                       <p>{doc.doc_name}</p>
                                     </>
-                                  ))}
-                                  {(doc.type === "png" && (
+                                  )}
+                                  {doc.type === "png" && (
                                     <>
                                       <Image
                                         src={doc.doc_url}
@@ -976,21 +794,18 @@ const RequirementForm = (stepperState) => {
                                       />
                                       <p>{doc.doc_name}</p>
                                     </>
-                                  ))}
-                                  {doc.type === "url"  && (
+                                  )}
+                                  {doc.type === "url" && (
                                     <a href={doc.doc_url} target="_blank">
                                       {doc.doc_name}
                                     </a>
                                   )}
                                 </div>
                               ))}
-
-                            {/* {AssignDocs === data.id && ( */}
                           </div>
                         )}
                       </div>
                     </div>
-
                     <div className="flex items-center space-x-2">
                       <MessageOutlined style={{ fontSize: "20px" }} />
                       <div className="relative" ref={closedropdownRef}>
@@ -1002,11 +817,10 @@ const RequirementForm = (stepperState) => {
 
                             console.log("selected TaskId", data.id);
                           }}
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-semibold p-2 rounded"
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-3 py-2 ml-2 rounded-0"
                         >
                           Action
                         </button>
-
                         {openActionIndex === index && (
                           <div className=" cursor-pointer absolute z-10 bg-white w-[10rem] p-2 -left-[50%] rounded-lg shadow-lg overflow-hidden">
                             <ul>
@@ -1029,11 +843,6 @@ const RequirementForm = (stepperState) => {
                           onCancel={handleCancel}
                           footer={null}
                         >
-                          {/* <Upload > */}
-                          {/* <Button icon={<UploadOutlined />}>
-                                  Upload
-                                </Button> */}
-                          {/* </Upload> */}
                           <UploadDocs />
                           <Form.Item
                             className="flex items-center ml-4 mt-2 "
@@ -1072,7 +881,6 @@ const RequirementForm = (stepperState) => {
                           }}
                           onCancel={handleCancel}
                           footer={[
-                            // Customizing the footer of the Modal
                             <Button key="cancel" onClick={handleCancel}>
                               Cancel
                             </Button>, // Cancel button
@@ -1080,9 +888,7 @@ const RequirementForm = (stepperState) => {
                               key="submit"
                               type="primary"
                               onClick={() => {
-                                // Submit button with primary type
                                 handleOk();
-                                // handleSubmit();
                                 UploadingLink();
                               }}
                               style={{
@@ -1125,17 +931,21 @@ const RequirementForm = (stepperState) => {
               )
             )
           )}
-
-          <div className="mt-6 border ">
-            <h2 className="text-l font-medium p-2">
+          <div className="mt-5 bg-gray-100 p-3">
+            <h2 className="text-l font-medium mb-2">
               Checklist for requirement
             </h2>
             {requireChecklist.map((checklistdata, index) => (
-              <div className="px-4 py-2 flex items-center gap-2 " key={index}>
+              <div className="py-2 flex items-center gap-2" key={index}>
                 <input type="checkbox"></input>
                 <p>{checklistdata.description}</p>
               </div>
             ))}
+          </div>
+          <div className="flex items-center justify-center mt-5">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-3 py-2 ml-2 rounded-0">
+              Next
+            </button>
           </div>
         </>
       )}
